@@ -808,3 +808,1302 @@ the public mailing list cygwin@cygwin.com
 [BSP build complete]
 
 **** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1 ****
+
+make all 
+      0 [main] sh 4620 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 7516 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 9600 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Building ../assignment1_bsp/
+the public mailing list cygwin@cygwin.com
+make --no-print-directory -C ../assignment1_bsp/
+      0 [main] pwd 10944 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 12636 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 7940 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+      0 [main] echo 1208 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Compiling trafficController.c to obj/default/trafficController.o
+the public mailing list cygwin@cygwin.com
+      0 [main] mkdir 6880 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+nios2-elf-gcc -xc -MP -MMD -c -I../assignment1_bsp//HAL/inc -I../assignment1_bsp/ -I../assignment1_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/trafficController.o trafficController.c
+the public mailing list cygwin@cygwin.com
+trafficController.c: In function 'buttons_driver':
+trafficController.c:116: warning: unused variable 'state'
+trafficController.c: In function 'init_buttons_pio':
+trafficController.c:175: warning: implicit declaration of function 'alt_irq_register'
+trafficController.c:175: error: 'NESW_ped_isr' undeclared (first use in this function)
+trafficController.c:175: error: (Each undeclared identifier is reported only once
+trafficController.c:175: error: for each function it appears in.)
+trafficController.c: In function 'NSEW_ped_isr':
+trafficController.c:203: warning: initialization discards qualifiers from pointer target type
+trafficController.c:210: warning: initialization discards qualifiers from pointer target type
+trafficController.c: In function 'update_timeout':
+trafficController.c:287: warning: control reaches end of non-void function
+trafficController.c: In function 'main':
+trafficController.c:351: warning: unused variable 'buttons'
+make: *** [obj/default/trafficController.o] Error 1
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1_bsp ****
+
+make all 
+      0 [main] pwd 11772 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 4696 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 10356 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1 ****
+
+make all 
+      0 [main] sh 10636 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 4504 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 12012 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Building ../assignment1_bsp/
+the public mailing list cygwin@cygwin.com
+make --no-print-directory -C ../assignment1_bsp/
+      0 [main] pwd 6192 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 3508 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 1596 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+      0 [main] echo 9080 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Compiling trafficController.c to obj/default/trafficController.o
+the public mailing list cygwin@cygwin.com
+      1 [main] mkdir 9944 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+nios2-elf-gcc -xc -MP -MMD -c -I../assignment1_bsp//HAL/inc -I../assignment1_bsp/ -I../assignment1_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/trafficController.o trafficController.c
+the public mailing list cygwin@cygwin.com
+trafficController.c: In function 'buttons_driver':
+trafficController.c:116: warning: unused variable 'state'
+trafficController.c: In function 'NSEW_ped_isr':
+trafficController.c:172: warning: initialization discards qualifiers from pointer target type
+trafficController.c:179: warning: initialization discards qualifiers from pointer target type
+trafficController.c: In function 'init_buttons_pio':
+trafficController.c:196: warning: implicit declaration of function 'alt_irq_register'
+trafficController.c:196: error: 'NESW_ped_isr' undeclared (first use in this function)
+trafficController.c:196: error: (Each undeclared identifier is reported only once
+trafficController.c:196: error: for each function it appears in.)
+trafficController.c: In function 'update_timeout':
+trafficController.c:287: warning: control reaches end of non-void function
+trafficController.c: In function 'main':
+trafficController.c:351: warning: unused variable 'buttons'
+make: *** [obj/default/trafficController.o] Error 1
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1_bsp ****
+
+make all 
+      0 [main] pwd 7696 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 12948 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 9480 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1 ****
+
+make all 
+      0 [main] sh 14264 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 12512 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 13112 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Building ../assignment1_bsp/
+the public mailing list cygwin@cygwin.com
+make --no-print-directory -C ../assignment1_bsp/
+      0 [main] pwd 7964 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 10212 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 6660 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+      0 [main] echo 13604 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Compiling trafficController.c to obj/default/trafficController.o
+the public mailing list cygwin@cygwin.com
+      1 [main] mkdir 10388 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+nios2-elf-gcc -xc -MP -MMD -c -I../assignment1_bsp//HAL/inc -I../assignment1_bsp/ -I../assignment1_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/trafficController.o trafficController.c
+the public mailing list cygwin@cygwin.com
+trafficController.c: In function 'buttons_driver':
+trafficController.c:116: warning: unused variable 'state'
+trafficController.c: In function 'NSEW_ped_isr':
+trafficController.c:172: warning: initialization discards qualifiers from pointer target type
+trafficController.c:179: warning: initialization discards qualifiers from pointer target type
+trafficController.c: In function 'init_buttons_pio':
+trafficController.c:196: warning: implicit declaration of function 'alt_irq_register'
+trafficController.c: In function 'update_timeout':
+trafficController.c:287: warning: control reaches end of non-void function
+trafficController.c: In function 'main':
+trafficController.c:351: warning: unused variable 'buttons'
+trafficController.c: At top level:
+trafficController.c:62: warning: 'tlc_timer' defined but not used
+trafficController.c:63: warning: 'camera_timer' defined but not used
+trafficController.c:80: warning: 'timeout' defined but not used
+trafficController.c:81: warning: 'timeout_buf' defined but not used
+trafficController.c:90: warning: 'traffic_lights' defined but not used
+      0 [main] true 13732 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 12868 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Linking assignment1.elf
+the public mailing list cygwin@cygwin.com
+nios2-elf-g++  -T'../assignment1_bsp//linker.x' -msys-crt0='../assignment1_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../assignment1_bsp/   -Wl,-Map=assignment1.map   -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o assignment1.elf obj/default/trafficController.o -lm 
+nios2-elf-insert assignment1.elf --thread_model hal --cpu_name cpu --qsys true --simulation_enabled false --id 309768158 --sidp 0x10110b0 --timestamp 1502656663 --stderr_dev jtag_uart --stdin_dev jtag_uart --stdout_dev jtag_uart --sopc_system_name system --quartus_project_dir "C:/Users/mark_/Documents/COMPSYS_303/303Assignments" --sopcinfo C:/Users/mark_/Documents/COMPSYS_303/303Assignments/system.sopcinfo
+      1 [main] sh 10472 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] uname 6268 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 724 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+Info: (assignment1.elf) 66 KBytes program size (code + initialized data).
+Info:                   8118 KBytes free for stack + heap.
+      0 [main] echo 9420 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Creating assignment1.objdump
+the public mailing list cygwin@cygwin.com
+nios2-elf-objdump --disassemble --syms --all-header --source assignment1.elf >assignment1.objdump
+      0 [main] sh 2828 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 14060 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[assignment1 build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1_bsp ****
+
+make all 
+      1 [main] pwd 9908 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 9004 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 9144 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1 ****
+
+make all 
+      0 [main] sh 2392 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 9012 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 2044 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Building ../assignment1_bsp/
+the public mailing list cygwin@cygwin.com
+make --no-print-directory -C ../assignment1_bsp/
+      0 [main] pwd 9088 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 3028 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 2520 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+      0 [main] echo 6124 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Compiling trafficController.c to obj/default/trafficController.o
+the public mailing list cygwin@cygwin.com
+      0 [main] mkdir 9656 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+nios2-elf-gcc -xc -MP -MMD -c -I../assignment1_bsp//HAL/inc -I../assignment1_bsp/ -I../assignment1_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/trafficController.o trafficController.c
+the public mailing list cygwin@cygwin.com
+trafficController.c: In function 'buttons_driver':
+trafficController.c:116: warning: unused variable 'state'
+trafficController.c: In function 'NSEW_ped_isr':
+trafficController.c:176: warning: initialization discards qualifiers from pointer target type
+trafficController.c:183: warning: initialization discards qualifiers from pointer target type
+trafficController.c: In function 'init_buttons_pio':
+trafficController.c:200: warning: implicit declaration of function 'alt_irq_register'
+trafficController.c: In function 'update_timeout':
+trafficController.c:291: warning: control reaches end of non-void function
+trafficController.c: In function 'main':
+trafficController.c:361: warning: passing argument 1 of 'buttons_driver' makes pointer from integer without a cast
+trafficController.c: At top level:
+trafficController.c:62: warning: 'tlc_timer' defined but not used
+trafficController.c:63: warning: 'camera_timer' defined but not used
+trafficController.c:80: warning: 'timeout' defined but not used
+trafficController.c:81: warning: 'timeout_buf' defined but not used
+trafficController.c:90: warning: 'traffic_lights' defined but not used
+      0 [main] true 7572 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 6592 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Linking assignment1.elf
+the public mailing list cygwin@cygwin.com
+nios2-elf-g++  -T'../assignment1_bsp//linker.x' -msys-crt0='../assignment1_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../assignment1_bsp/   -Wl,-Map=assignment1.map   -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o assignment1.elf obj/default/trafficController.o -lm 
+nios2-elf-insert assignment1.elf --thread_model hal --cpu_name cpu --qsys true --simulation_enabled false --id 309768158 --sidp 0x10110b0 --timestamp 1502656663 --stderr_dev jtag_uart --stdin_dev jtag_uart --stdout_dev jtag_uart --sopc_system_name system --quartus_project_dir "C:/Users/mark_/Documents/COMPSYS_303/303Assignments" --sopcinfo C:/Users/mark_/Documents/COMPSYS_303/303Assignments/system.sopcinfo
+      0 [main] sh 1292 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] uname 10396 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 3048 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+Info: (assignment1.elf) 66 KBytes program size (code + initialized data).
+Info:                   8118 KBytes free for stack + heap.
+      0 [main] echo 220 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Creating assignment1.objdump
+the public mailing list cygwin@cygwin.com
+nios2-elf-objdump --disassemble --syms --all-header --source assignment1.elf >assignment1.objdump
+      0 [main] sh 14120 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 4012 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[assignment1 build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1_bsp ****
+
+make all 
+      0 [main] pwd 3624 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 7004 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 2792 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1 ****
+
+make all 
+      0 [main] sh 12936 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 6552 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 7040 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Building ../assignment1_bsp/
+the public mailing list cygwin@cygwin.com
+make --no-print-directory -C ../assignment1_bsp/
+      0 [main] pwd 12492 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 6228 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 10256 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+      1 [main] echo 10828 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Compiling trafficController.c to obj/default/trafficController.o
+the public mailing list cygwin@cygwin.com
+     31 [main] mkdir 8852 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+nios2-elf-gcc -xc -MP -MMD -c -I../assignment1_bsp//HAL/inc -I../assignment1_bsp/ -I../assignment1_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/trafficController.o trafficController.c
+the public mailing list cygwin@cygwin.com
+trafficController.c: In function 'buttons_driver':
+trafficController.c:116: warning: unused variable 'state'
+trafficController.c: In function 'NSEW_ped_isr':
+trafficController.c:176: warning: initialization discards qualifiers from pointer target type
+trafficController.c:183: warning: initialization discards qualifiers from pointer target type
+trafficController.c: In function 'init_buttons_pio':
+trafficController.c:200: warning: implicit declaration of function 'alt_irq_register'
+trafficController.c: In function 'update_timeout':
+trafficController.c:291: warning: control reaches end of non-void function
+trafficController.c: At top level:
+trafficController.c:62: warning: 'tlc_timer' defined but not used
+trafficController.c:63: warning: 'camera_timer' defined but not used
+trafficController.c:80: warning: 'timeout' defined but not used
+trafficController.c:81: warning: 'timeout_buf' defined but not used
+trafficController.c:90: warning: 'traffic_lights' defined but not used
+      0 [main] true 12788 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 11096 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Linking assignment1.elf
+the public mailing list cygwin@cygwin.com
+nios2-elf-g++  -T'../assignment1_bsp//linker.x' -msys-crt0='../assignment1_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../assignment1_bsp/   -Wl,-Map=assignment1.map   -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o assignment1.elf obj/default/trafficController.o -lm 
+nios2-elf-insert assignment1.elf --thread_model hal --cpu_name cpu --qsys true --simulation_enabled false --id 309768158 --sidp 0x10110b0 --timestamp 1502656663 --stderr_dev jtag_uart --stdin_dev jtag_uart --stdout_dev jtag_uart --sopc_system_name system --quartus_project_dir "C:/Users/mark_/Documents/COMPSYS_303/303Assignments" --sopcinfo C:/Users/mark_/Documents/COMPSYS_303/303Assignments/system.sopcinfo
+      0 [main] sh 8016 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] uname 12700 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 5876 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+Info: (assignment1.elf) 66 KBytes program size (code + initialized data).
+Info:                   8118 KBytes free for stack + heap.
+      1 [main] echo 4692 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Creating assignment1.objdump
+the public mailing list cygwin@cygwin.com
+nios2-elf-objdump --disassemble --syms --all-header --source assignment1.elf >assignment1.objdump
+      0 [main] sh 12332 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 4128 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[assignment1 build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1_bsp ****
+
+make all 
+      1 [main] pwd 3928 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 14252 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 8688 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1 ****
+
+make all 
+      1 [main] sh 9548 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 10916 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 8036 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Building ../assignment1_bsp/
+the public mailing list cygwin@cygwin.com
+make --no-print-directory -C ../assignment1_bsp/
+      0 [main] pwd 1676 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 1908 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 3760 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+[BSP build complete]
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 5408 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Compiling trafficController.c to obj/default/trafficController.o
+the public mailing list cygwin@cygwin.com
+      0 [main] mkdir 13748 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+nios2-elf-gcc -xc -MP -MMD -c -I../assignment1_bsp//HAL/inc -I../assignment1_bsp/ -I../assignment1_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/trafficController.o trafficController.c
+the public mailing list cygwin@cygwin.com
+trafficController.c: In function 'buttons_driver':
+trafficController.c:121: error: too few arguments to function 'handle_mode_button'
+trafficController.c: In function 'NSEW_ped_isr':
+trafficController.c:178: warning: initialization discards qualifiers from pointer target type
+trafficController.c:185: warning: initialization discards qualifiers from pointer target type
+trafficController.c: In function 'init_buttons_pio':
+trafficController.c:202: warning: implicit declaration of function 'alt_irq_register'
+trafficController.c: In function 'update_timeout':
+trafficController.c:293: warning: control reaches end of non-void function
+make: *** [obj/default/trafficController.o] Error 1
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1_bsp ****
+
+make all 
+      0 [main] pwd 4080 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 10108 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 1808 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1 ****
+
+make all 
+      0 [main] sh 2728 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 13432 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 8928 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Building ../assignment1_bsp/
+the public mailing list cygwin@cygwin.com
+make --no-print-directory -C ../assignment1_bsp/
+      0 [main] pwd 3328 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 6280 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 12652 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+      0 [main] echo 2924 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Compiling trafficController.c to obj/default/trafficController.o
+the public mailing list cygwin@cygwin.com
+      1 [main] mkdir 6648 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+nios2-elf-gcc -xc -MP -MMD -c -I../assignment1_bsp//HAL/inc -I../assignment1_bsp/ -I../assignment1_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/trafficController.o trafficController.c
+trafficController.c: In function 'buttons_driver':
+trafficController.c:121: warning: pointer targets in passing argument 1 of 'handle_mode_button' differ in signedness
+trafficController.c: In function 'NSEW_ped_isr':
+trafficController.c:178: warning: initialization discards qualifiers from pointer target type
+trafficController.c:185: warning: initialization discards qualifiers from pointer target type
+trafficController.c: In function 'init_buttons_pio':
+trafficController.c:202: warning: implicit declaration of function 'alt_irq_register'
+trafficController.c: In function 'update_timeout':
+trafficController.c:293: warning: control reaches end of non-void function
+trafficController.c: At top level:
+trafficController.c:62: warning: 'tlc_timer' defined but not used
+trafficController.c:63: warning: 'camera_timer' defined but not used
+trafficController.c:80: warning: 'timeout' defined but not used
+trafficController.c:81: warning: 'timeout_buf' defined but not used
+trafficController.c:90: warning: 'traffic_lights' defined but not used
+      0 [main] true 5056 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 7984 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Linking assignment1.elf
+the public mailing list cygwin@cygwin.com
+nios2-elf-g++  -T'../assignment1_bsp//linker.x' -msys-crt0='../assignment1_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../assignment1_bsp/   -Wl,-Map=assignment1.map   -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o assignment1.elf obj/default/trafficController.o -lm 
+nios2-elf-insert assignment1.elf --thread_model hal --cpu_name cpu --qsys true --simulation_enabled false --id 309768158 --sidp 0x10110b0 --timestamp 1502656663 --stderr_dev jtag_uart --stdin_dev jtag_uart --stdout_dev jtag_uart --sopc_system_name system --quartus_project_dir "C:/Users/mark_/Documents/COMPSYS_303/303Assignments" --sopcinfo C:/Users/mark_/Documents/COMPSYS_303/303Assignments/system.sopcinfo
+      0 [main] sh 13384 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] uname 9772 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 13704 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+Info: (assignment1.elf) 66 KBytes program size (code + initialized data).
+Info:                   8118 KBytes free for stack + heap.
+      0 [main] echo 1628 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Creating assignment1.objdump
+the public mailing list cygwin@cygwin.com
+nios2-elf-objdump --disassemble --syms --all-header --source assignment1.elf >assignment1.objdump
+      0 [main] sh 10512 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 7428 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[assignment1 build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1_bsp ****
+
+make all 
+      0 [main] pwd 9260 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 7252 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 7516 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1 ****
+
+make all 
+      0 [main] sh 11200 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 8356 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 11648 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Building ../assignment1_bsp/
+the public mailing list cygwin@cygwin.com
+make --no-print-directory -C ../assignment1_bsp/
+      0 [main] pwd 1104 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 4936 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 5508 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+      1 [main] echo 9564 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Compiling trafficController.c to obj/default/trafficController.o
+the public mailing list cygwin@cygwin.com
+      1 [main] mkdir 5188 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+nios2-elf-gcc -xc -MP -MMD -c -I../assignment1_bsp//HAL/inc -I../assignment1_bsp/ -I../assignment1_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/trafficController.o trafficController.c
+the public mailing list cygwin@cygwin.com
+trafficController.c:98: warning: data definition has no type or storage class
+trafficController.c:98: warning: type defaults to 'int' in declaration of 'lcd'
+trafficController.c:98: error: conflicting types for 'lcd'
+trafficController.c:97: error: previous declaration of 'lcd' was here
+trafficController.c:98: warning: initialization makes integer from pointer without a cast
+trafficController.c:98: error: initializer element is not constant
+trafficController.c: In function 'lcd_set_mode':
+trafficController.c:111: warning: comparison between pointer and integer
+trafficController.c:114: warning: passing argument 1 of 'fprintf' makes pointer from integer without a cast
+trafficController.c:115: warning: passing argument 1 of 'fprintf' makes pointer from integer without a cast
+trafficController.c: At top level:
+trafficController.c:123: error: conflicting types for 'buttons_driver'
+trafficController.c:30: error: previous declaration of 'buttons_driver' was here
+trafficController.c: In function 'handle_mode_button':
+trafficController.c:145: warning: assignment makes integer from pointer without a cast
+trafficController.c: In function 'NSEW_ped_isr':
+trafficController.c:188: warning: initialization discards qualifiers from pointer target type
+trafficController.c:195: warning: initialization discards qualifiers from pointer target type
+trafficController.c: In function 'init_buttons_pio':
+trafficController.c:212: warning: implicit declaration of function 'alt_irq_register'
+trafficController.c: In function 'update_timeout':
+trafficController.c:303: warning: control reaches end of non-void function
+make: *** [obj/default/trafficController.o] Error 1
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1_bsp ****
+
+make all 
+      1 [main] pwd 5020 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 6448 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 11328 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1 ****
+
+make all 
+      0 [main] sh 13032 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 7280 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 12656 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Building ../assignment1_bsp/
+the public mailing list cygwin@cygwin.com
+make --no-print-directory -C ../assignment1_bsp/
+      0 [main] pwd 12536 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 3616 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 3900 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+      0 [main] echo 11320 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Compiling trafficController.c to obj/default/trafficController.o
+the public mailing list cygwin@cygwin.com
+      0 [main] mkdir 8464 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+nios2-elf-gcc -xc -MP -MMD -c -I../assignment1_bsp//HAL/inc -I../assignment1_bsp/ -I../assignment1_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/trafficController.o trafficController.c
+the public mailing list cygwin@cygwin.com
+trafficController.c:98: warning: data definition has no type or storage class
+trafficController.c:98: warning: type defaults to 'int' in declaration of 'lcd'
+trafficController.c:98: error: conflicting types for 'lcd'
+trafficController.c:97: error: previous declaration of 'lcd' was here
+trafficController.c:98: warning: initialization makes integer from pointer without a cast
+trafficController.c:98: error: initializer element is not constant
+trafficController.c: In function 'lcd_set_mode':
+trafficController.c:111: warning: comparison between pointer and integer
+trafficController.c:114: warning: passing argument 1 of 'fprintf' makes pointer from integer without a cast
+trafficController.c:115: warning: passing argument 1 of 'fprintf' makes pointer from integer without a cast
+trafficController.c: In function 'handle_mode_button':
+trafficController.c:145: warning: assignment makes integer from pointer without a cast
+trafficController.c: In function 'NSEW_ped_isr':
+trafficController.c:188: warning: initialization discards qualifiers from pointer target type
+trafficController.c:195: warning: initialization discards qualifiers from pointer target type
+trafficController.c: In function 'init_buttons_pio':
+trafficController.c:212: warning: implicit declaration of function 'alt_irq_register'
+trafficController.c: In function 'update_timeout':
+trafficController.c:303: warning: control reaches end of non-void function
+make: *** [obj/default/trafficController.o] Error 1
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1_bsp ****
+
+make all 
+      1 [main] pwd 836 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 9248 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      3 [main] sh 8796 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1 ****
+
+make all 
+      0 [main] sh 13388 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 1472 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 11816 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Building ../assignment1_bsp/
+the public mailing list cygwin@cygwin.com
+make --no-print-directory -C ../assignment1_bsp/
+      0 [main] pwd 2568 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 11668 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 13700 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+      1 [main] echo 11652 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Compiling trafficController.c to obj/default/trafficController.o
+the public mailing list cygwin@cygwin.com
+      3 [main] mkdir 4128 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+nios2-elf-gcc -xc -MP -MMD -c -I../assignment1_bsp//HAL/inc -I../assignment1_bsp/ -I../assignment1_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/trafficController.o trafficController.c
+the public mailing list cygwin@cygwin.com
+trafficController.c:97: warning: data definition has no type or storage class
+trafficController.c:97: warning: type defaults to 'int' in declaration of 'lcd'
+trafficController.c:97: warning: initialization makes integer from pointer without a cast
+trafficController.c:97: error: initializer element is not constant
+trafficController.c: In function 'lcd_set_mode':
+trafficController.c:110: warning: comparison between pointer and integer
+trafficController.c:113: warning: passing argument 1 of 'fprintf' makes pointer from integer without a cast
+trafficController.c:114: warning: passing argument 1 of 'fprintf' makes pointer from integer without a cast
+trafficController.c: In function 'handle_mode_button':
+trafficController.c:144: warning: assignment makes integer from pointer without a cast
+trafficController.c: In function 'NSEW_ped_isr':
+trafficController.c:187: warning: initialization discards qualifiers from pointer target type
+trafficController.c:194: warning: initialization discards qualifiers from pointer target type
+trafficController.c: In function 'init_buttons_pio':
+trafficController.c:211: warning: implicit declaration of function 'alt_irq_register'
+trafficController.c: In function 'update_timeout':
+trafficController.c:302: warning: control reaches end of non-void function
+make: *** [obj/default/trafficController.o] Error 1
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1_bsp ****
+
+make all 
+      2 [main] pwd 13524 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 1820 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      2 [main] sh 11116 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1 ****
+
+make all 
+      0 [main] sh 4444 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 13416 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 3048 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Building ../assignment1_bsp/
+the public mailing list cygwin@cygwin.com
+make --no-print-directory -C ../assignment1_bsp/
+      0 [main] pwd 11596 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 10836 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 2888 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+      0 [main] echo 11664 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Compiling trafficController.c to obj/default/trafficController.o
+the public mailing list cygwin@cygwin.com
+      1 [main] mkdir 7128 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+nios2-elf-gcc -xc -MP -MMD -c -I../assignment1_bsp//HAL/inc -I../assignment1_bsp/ -I../assignment1_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/trafficController.o trafficController.c
+the public mailing list cygwin@cygwin.com
+trafficController.c:97: error: initializer element is not constant
+trafficController.c: In function 'handle_mode_button':
+trafficController.c:144: warning: assignment makes integer from pointer without a cast
+trafficController.c: In function 'NSEW_ped_isr':
+trafficController.c:187: warning: initialization discards qualifiers from pointer target type
+trafficController.c:194: warning: initialization discards qualifiers from pointer target type
+trafficController.c: In function 'init_buttons_pio':
+trafficController.c:211: warning: implicit declaration of function 'alt_irq_register'
+trafficController.c: In function 'update_timeout':
+trafficController.c:302: warning: control reaches end of non-void function
+make: *** [obj/default/trafficController.o] Error 1
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1_bsp ****
+
+make all 
+      2 [main] pwd 3756 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      2 [main] sh 8928 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 13732 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1 ****
+
+make all 
+      0 [main] sh 2204 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 4876 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 8940 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Building ../assignment1_bsp/
+the public mailing list cygwin@cygwin.com
+make --no-print-directory -C ../assignment1_bsp/
+      0 [main] pwd 10388 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 236 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 1852 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+      0 [main] echo 8540 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Compiling trafficController.c to obj/default/trafficController.o
+the public mailing list cygwin@cygwin.com
+      0 [main] mkdir 9004 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+nios2-elf-gcc -xc -MP -MMD -c -I../assignment1_bsp//HAL/inc -I../assignment1_bsp/ -I../assignment1_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/trafficController.o trafficController.c
+the public mailing list cygwin@cygwin.com
+trafficController.c:106: error: conflicting types for 'lcd_set_mode'
+trafficController.c:19: error: previous declaration of 'lcd_set_mode' was here
+trafficController.c: In function 'handle_mode_button':
+trafficController.c:141: warning: assignment makes integer from pointer without a cast
+trafficController.c: In function 'NSEW_ped_isr':
+trafficController.c:184: warning: initialization discards qualifiers from pointer target type
+trafficController.c:191: warning: initialization discards qualifiers from pointer target type
+trafficController.c: In function 'init_buttons_pio':
+trafficController.c:208: warning: implicit declaration of function 'alt_irq_register'
+trafficController.c: In function 'update_timeout':
+trafficController.c:299: warning: control reaches end of non-void function
+make: *** [obj/default/trafficController.o] Error 1
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1_bsp ****
+
+make all 
+      0 [main] pwd 5744 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 13316 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 10184 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1 ****
+
+make all 
+      0 [main] sh 2768 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 6628 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] echo 2912 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Building ../assignment1_bsp/
+the public mailing list cygwin@cygwin.com
+make --no-print-directory -C ../assignment1_bsp/
+      0 [main] pwd 12068 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 10360 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 10516 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+      0 [main] echo 3508 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Compiling trafficController.c to obj/default/trafficController.o
+the public mailing list cygwin@cygwin.com
+      0 [main] mkdir 2608 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+nios2-elf-gcc -xc -MP -MMD -c -I../assignment1_bsp//HAL/inc -I../assignment1_bsp/ -I../assignment1_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/trafficController.o trafficController.c
+the public mailing list cygwin@cygwin.com
+trafficController.c: In function 'handle_mode_button':
+trafficController.c:141: warning: assignment makes integer from pointer without a cast
+trafficController.c: In function 'NSEW_ped_isr':
+trafficController.c:184: warning: initialization discards qualifiers from pointer target type
+trafficController.c:191: warning: initialization discards qualifiers from pointer target type
+trafficController.c: In function 'init_buttons_pio':
+trafficController.c:208: warning: implicit declaration of function 'alt_irq_register'
+trafficController.c: In function 'update_timeout':
+trafficController.c:299: warning: control reaches end of non-void function
+trafficController.c: At top level:
+trafficController.c:62: warning: 'tlc_timer' defined but not used
+trafficController.c:63: warning: 'camera_timer' defined but not used
+trafficController.c:80: warning: 'timeout' defined but not used
+trafficController.c:81: warning: 'timeout_buf' defined but not used
+trafficController.c:90: warning: 'traffic_lights' defined but not used
+      0 [main] true 12888 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 10392 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Linking assignment1.elf
+the public mailing list cygwin@cygwin.com
+nios2-elf-g++  -T'../assignment1_bsp//linker.x' -msys-crt0='../assignment1_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../assignment1_bsp/   -Wl,-Map=assignment1.map   -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o assignment1.elf obj/default/trafficController.o -lm 
+nios2-elf-insert assignment1.elf --thread_model hal --cpu_name cpu --qsys true --simulation_enabled false --id 309768158 --sidp 0x10110b0 --timestamp 1502656663 --stderr_dev jtag_uart --stdin_dev jtag_uart --stdout_dev jtag_uart --sopc_system_name system --quartus_project_dir "C:/Users/mark_/Documents/COMPSYS_303/303Assignments" --sopcinfo C:/Users/mark_/Documents/COMPSYS_303/303Assignments/system.sopcinfo
+      0 [main] sh 13716 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] uname 12244 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 10772 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+Info: (assignment1.elf) 69 KBytes program size (code + initialized data).
+Info:                   8115 KBytes free for stack + heap.
+      1 [main] echo 11544 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Creating assignment1.objdump
+the public mailing list cygwin@cygwin.com
+nios2-elf-objdump --disassemble --syms --all-header --source assignment1.elf >assignment1.objdump
+      0 [main] sh 12588 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 6236 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[assignment1 build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1_bsp ****
+
+make all 
+      2 [main] pwd 2396 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      2 [main] sh 9236 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 12200 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1 ****
+
+make all 
+      0 [main] sh 2164 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 11620 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 13956 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Building ../assignment1_bsp/
+the public mailing list cygwin@cygwin.com
+make --no-print-directory -C ../assignment1_bsp/
+      0 [main] pwd 12428 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 644 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 10244 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+      0 [main] echo 13504 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Compiling trafficController.c to obj/default/trafficController.o
+the public mailing list cygwin@cygwin.com
+      1 [main] mkdir 9968 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+nios2-elf-gcc -xc -MP -MMD -c -I../assignment1_bsp//HAL/inc -I../assignment1_bsp/ -I../assignment1_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/trafficController.o trafficController.c
+the public mailing list cygwin@cygwin.com
+trafficController.c: In function 'handle_mode_button':
+trafficController.c:141: warning: assignment makes integer from pointer without a cast
+trafficController.c: In function 'NSEW_ped_isr':
+trafficController.c:184: warning: initialization discards qualifiers from pointer target type
+trafficController.c:191: warning: initialization discards qualifiers from pointer target type
+trafficController.c: In function 'init_buttons_pio':
+trafficController.c:208: warning: implicit declaration of function 'alt_irq_register'
+trafficController.c: In function 'update_timeout':
+trafficController.c:299: warning: control reaches end of non-void function
+trafficController.c: At top level:
+trafficController.c:62: warning: 'tlc_timer' defined but not used
+trafficController.c:63: warning: 'camera_timer' defined but not used
+trafficController.c:80: warning: 'timeout' defined but not used
+trafficController.c:81: warning: 'timeout_buf' defined but not used
+trafficController.c:90: warning: 'traffic_lights' defined but not used
+      0 [main] true 9188 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 11868 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Linking assignment1.elf
+the public mailing list cygwin@cygwin.com
+nios2-elf-g++  -T'../assignment1_bsp//linker.x' -msys-crt0='../assignment1_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../assignment1_bsp/   -Wl,-Map=assignment1.map   -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o assignment1.elf obj/default/trafficController.o -lm 
+nios2-elf-insert assignment1.elf --thread_model hal --cpu_name cpu --qsys true --simulation_enabled false --id 309768158 --sidp 0x10110b0 --timestamp 1502656663 --stderr_dev jtag_uart --stdin_dev jtag_uart --stdout_dev jtag_uart --sopc_system_name system --quartus_project_dir "C:/Users/mark_/Documents/COMPSYS_303/303Assignments" --sopcinfo C:/Users/mark_/Documents/COMPSYS_303/303Assignments/system.sopcinfo
+      0 [main] sh 13668 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] uname 9176 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 14176 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+Info: (assignment1.elf) 69 KBytes program size (code + initialized data).
+Info:                   8115 KBytes free for stack + heap.
+      0 [main] echo 10384 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Creating assignment1.objdump
+the public mailing list cygwin@cygwin.com
+nios2-elf-objdump --disassemble --syms --all-header --source assignment1.elf >assignment1.objdump
+      0 [main] sh 12852 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 8392 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[assignment1 build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1_bsp ****
+
+make all 
+      1 [main] pwd 12240 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 3360 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      3 [main] sh 6552 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1 ****
+
+make all 
+      0 [main] sh 13680 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 1164 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 8752 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Building ../assignment1_bsp/
+the public mailing list cygwin@cygwin.com
+make --no-print-directory -C ../assignment1_bsp/
+      0 [main] pwd 14280 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 1600 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 12908 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+      1 [main] echo 8700 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Compiling trafficController.c to obj/default/trafficController.o
+the public mailing list cygwin@cygwin.com
+      1 [main] mkdir 10356 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+nios2-elf-gcc -xc -MP -MMD -c -I../assignment1_bsp//HAL/inc -I../assignment1_bsp/ -I../assignment1_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/trafficController.o trafficController.c
+the public mailing list cygwin@cygwin.com
+trafficController.c: In function 'handle_mode_button':
+trafficController.c:140: warning: value computed is not used
+trafficController.c: In function 'NSEW_ped_isr':
+trafficController.c:184: warning: initialization discards qualifiers from pointer target type
+trafficController.c:191: warning: initialization discards qualifiers from pointer target type
+trafficController.c: In function 'init_buttons_pio':
+trafficController.c:208: warning: implicit declaration of function 'alt_irq_register'
+trafficController.c: In function 'update_timeout':
+trafficController.c:299: warning: control reaches end of non-void function
+trafficController.c: At top level:
+trafficController.c:62: warning: 'tlc_timer' defined but not used
+trafficController.c:63: warning: 'camera_timer' defined but not used
+trafficController.c:80: warning: 'timeout' defined but not used
+trafficController.c:81: warning: 'timeout_buf' defined but not used
+trafficController.c:90: warning: 'traffic_lights' defined but not used
+      0 [main] true 4676 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 2296 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Linking assignment1.elf
+the public mailing list cygwin@cygwin.com
+nios2-elf-g++  -T'../assignment1_bsp//linker.x' -msys-crt0='../assignment1_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../assignment1_bsp/   -Wl,-Map=assignment1.map   -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o assignment1.elf obj/default/trafficController.o -lm 
+nios2-elf-insert assignment1.elf --thread_model hal --cpu_name cpu --qsys true --simulation_enabled false --id 309768158 --sidp 0x10110b0 --timestamp 1502656663 --stderr_dev jtag_uart --stdin_dev jtag_uart --stdout_dev jtag_uart --sopc_system_name system --quartus_project_dir "C:/Users/mark_/Documents/COMPSYS_303/303Assignments" --sopcinfo C:/Users/mark_/Documents/COMPSYS_303/303Assignments/system.sopcinfo
+      0 [main] sh 3684 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] uname 2484 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 2648 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+Info: (assignment1.elf) 69 KBytes program size (code + initialized data).
+Info:                   8115 KBytes free for stack + heap.
+      1 [main] echo 5360 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Creating assignment1.objdump
+the public mailing list cygwin@cygwin.com
+nios2-elf-objdump --disassemble --syms --all-header --source assignment1.elf >assignment1.objdump
+      0 [main] sh 11700 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 6752 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[assignment1 build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1_bsp ****
+
+make all 
+      0 [main] pwd 1172 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 9144 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 13948 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1 ****
+
+make all 
+      0 [main] sh 1388 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 3836 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] echo 1272 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Building ../assignment1_bsp/
+the public mailing list cygwin@cygwin.com
+make --no-print-directory -C ../assignment1_bsp/
+      0 [main] pwd 6360 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 12512 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 8532 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+      1 [main] echo 4552 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Compiling trafficController.c to obj/default/trafficController.o
+the public mailing list cygwin@cygwin.com
+      1 [main] mkdir 980 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+nios2-elf-gcc -xc -MP -MMD -c -I../assignment1_bsp//HAL/inc -I../assignment1_bsp/ -I../assignment1_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/trafficController.o trafficController.c
+the public mailing list cygwin@cygwin.com
+trafficController.c: In function 'handle_mode_button':
+trafficController.c:140: warning: value computed is not used
+trafficController.c: In function 'init_buttons_pio':
+trafficController.c:208: warning: implicit declaration of function 'alt_irq_register'
+trafficController.c: In function 'update_timeout':
+trafficController.c:299: warning: control reaches end of non-void function
+trafficController.c: At top level:
+trafficController.c:62: warning: 'tlc_timer' defined but not used
+trafficController.c:63: warning: 'camera_timer' defined but not used
+trafficController.c:80: warning: 'timeout' defined but not used
+trafficController.c:81: warning: 'timeout_buf' defined but not used
+trafficController.c:90: warning: 'traffic_lights' defined but not used
+      0 [main] true 12268 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 8452 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Linking assignment1.elf
+the public mailing list cygwin@cygwin.com
+nios2-elf-g++  -T'../assignment1_bsp//linker.x' -msys-crt0='../assignment1_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../assignment1_bsp/   -Wl,-Map=assignment1.map   -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o assignment1.elf obj/default/trafficController.o -lm 
+nios2-elf-insert assignment1.elf --thread_model hal --cpu_name cpu --qsys true --simulation_enabled false --id 309768158 --sidp 0x10110b0 --timestamp 1502656663 --stderr_dev jtag_uart --stdin_dev jtag_uart --stdout_dev jtag_uart --sopc_system_name system --quartus_project_dir "C:/Users/mark_/Documents/COMPSYS_303/303Assignments" --sopcinfo C:/Users/mark_/Documents/COMPSYS_303/303Assignments/system.sopcinfo
+      0 [main] sh 7300 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] uname 9176 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      2 [main] sh 12964 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+Info: (assignment1.elf) 69 KBytes program size (code + initialized data).
+Info:                   8115 KBytes free for stack + heap.
+      1 [main] echo 12852 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Creating assignment1.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source assignment1.elf >assignment1.objdump
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 11508 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 11724 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[assignment1 build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1_bsp ****
+
+make all 
+      0 [main] pwd 6868 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 5000 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 12708 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1 ****
+
+make all 
+      0 [main] sh 13664 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 14148 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 2640 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Building ../assignment1_bsp/
+the public mailing list cygwin@cygwin.com
+make --no-print-directory -C ../assignment1_bsp/
+      0 [main] pwd 9548 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 12008 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 11116 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+      1 [main] echo 832 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Compiling trafficController.c to obj/default/trafficController.o
+the public mailing list cygwin@cygwin.com
+      1 [main] mkdir 9464 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+nios2-elf-gcc -xc -MP -MMD -c -I../assignment1_bsp//HAL/inc -I../assignment1_bsp/ -I../assignment1_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/trafficController.o trafficController.c
+the public mailing list cygwin@cygwin.com
+trafficController.c: In function 'buttons_driver':
+trafficController.c:122: warning: value computed is not used
+trafficController.c: In function 'init_buttons_pio':
+trafficController.c:208: warning: implicit declaration of function 'alt_irq_register'
+trafficController.c: In function 'update_timeout':
+trafficController.c:299: warning: control reaches end of non-void function
+trafficController.c: At top level:
+trafficController.c:62: warning: 'tlc_timer' defined but not used
+trafficController.c:63: warning: 'camera_timer' defined but not used
+trafficController.c:80: warning: 'timeout' defined but not used
+trafficController.c:81: warning: 'timeout_buf' defined but not used
+trafficController.c:90: warning: 'traffic_lights' defined but not used
+      1 [main] true 9644 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] echo 6200 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Linking assignment1.elf
+the public mailing list cygwin@cygwin.com
+nios2-elf-g++  -T'../assignment1_bsp//linker.x' -msys-crt0='../assignment1_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../assignment1_bsp/   -Wl,-Map=assignment1.map   -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o assignment1.elf obj/default/trafficController.o -lm 
+nios2-elf-insert assignment1.elf --thread_model hal --cpu_name cpu --qsys true --simulation_enabled false --id 309768158 --sidp 0x10110b0 --timestamp 1502656663 --stderr_dev jtag_uart --stdin_dev jtag_uart --stdout_dev jtag_uart --sopc_system_name system --quartus_project_dir "C:/Users/mark_/Documents/COMPSYS_303/303Assignments" --sopcinfo C:/Users/mark_/Documents/COMPSYS_303/303Assignments/system.sopcinfo
+      0 [main] sh 9360 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] uname 11904 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 7488 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+Info: (assignment1.elf) 69 KBytes program size (code + initialized data).
+Info:                   8115 KBytes free for stack + heap.
+      0 [main] echo 9076 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Creating assignment1.objdump
+the public mailing list cygwin@cygwin.com
+nios2-elf-objdump --disassemble --syms --all-header --source assignment1.elf >assignment1.objdump
+      1 [main] sh 11624 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 8912 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[assignment1 build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1_bsp ****
+
+make all 
+      1 [main] pwd 5748 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 13824 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      3 [main] sh 2200 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1 ****
+
+make all 
+      0 [main] sh 13628 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 13392 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 840 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Building ../assignment1_bsp/
+the public mailing list cygwin@cygwin.com
+make --no-print-directory -C ../assignment1_bsp/
+      0 [main] pwd 9036 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 13084 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      2 [main] sh 2524 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+      1 [main] echo 2140 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Compiling trafficController.c to obj/default/trafficController.o
+the public mailing list cygwin@cygwin.com
+      1 [main] mkdir 4696 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+nios2-elf-gcc -xc -MP -MMD -c -I../assignment1_bsp//HAL/inc -I../assignment1_bsp/ -I../assignment1_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/trafficController.o trafficController.c
+the public mailing list cygwin@cygwin.com
+trafficController.c: In function 'init_buttons_pio':
+trafficController.c:208: warning: implicit declaration of function 'alt_irq_register'
+trafficController.c: In function 'update_timeout':
+trafficController.c:299: warning: control reaches end of non-void function
+trafficController.c: At top level:
+trafficController.c:62: warning: 'tlc_timer' defined but not used
+trafficController.c:63: warning: 'camera_timer' defined but not used
+trafficController.c:80: warning: 'timeout' defined but not used
+trafficController.c:81: warning: 'timeout_buf' defined but not used
+trafficController.c:90: warning: 'traffic_lights' defined but not used
+      0 [main] true 3012 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 9776 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Linking assignment1.elf
+the public mailing list cygwin@cygwin.com
+nios2-elf-g++  -T'../assignment1_bsp//linker.x' -msys-crt0='../assignment1_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../assignment1_bsp/   -Wl,-Map=assignment1.map   -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o assignment1.elf obj/default/trafficController.o -lm 
+nios2-elf-insert assignment1.elf --thread_model hal --cpu_name cpu --qsys true --simulation_enabled false --id 309768158 --sidp 0x10110b0 --timestamp 1502656663 --stderr_dev jtag_uart --stdin_dev jtag_uart --stdout_dev jtag_uart --sopc_system_name system --quartus_project_dir "C:/Users/mark_/Documents/COMPSYS_303/303Assignments" --sopcinfo C:/Users/mark_/Documents/COMPSYS_303/303Assignments/system.sopcinfo
+      0 [main] sh 7856 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] uname 8936 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 10088 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+Info: (assignment1.elf) 69 KBytes program size (code + initialized data).
+Info:                   8115 KBytes free for stack + heap.
+      2 [main] echo 7624 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Creating assignment1.objdump
+the public mailing list cygwin@cygwin.com
+nios2-elf-objdump --disassemble --syms --all-header --source assignment1.elf >assignment1.objdump
+      1 [main] sh 11160 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 5784 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[assignment1 build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1_bsp ****
+
+make all 
+      1 [main] pwd 11468 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 2600 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 14092 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1 ****
+
+make all 
+      0 [main] sh 11652 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 10508 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 9432 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Building ../assignment1_bsp/
+the public mailing list cygwin@cygwin.com
+make --no-print-directory -C ../assignment1_bsp/
+      0 [main] pwd 14120 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 7232 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 7688 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+      0 [main] echo 14016 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+Info: Compiling trafficController.c to obj/default/trafficController.o
+      0 [main] mkdir 11132 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+nios2-elf-gcc -xc -MP -MMD -c -I../assignment1_bsp//HAL/inc -I../assignment1_bsp/ -I../assignment1_bsp//drivers/inc  -DSYSTEM_BUS_WIDTH=32 -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o obj/default/trafficController.o trafficController.c
+the public mailing list cygwin@cygwin.com
+trafficController.c: In function 'init_buttons_pio':
+trafficController.c:208: warning: implicit declaration of function 'alt_irq_register'
+trafficController.c: At top level:
+trafficController.c:62: warning: 'tlc_timer' defined but not used
+trafficController.c:63: warning: 'camera_timer' defined but not used
+trafficController.c:80: warning: 'timeout' defined but not used
+trafficController.c:81: warning: 'timeout_buf' defined but not used
+trafficController.c:90: warning: 'traffic_lights' defined but not used
+      0 [main] true 1724 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] echo 7444 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Linking assignment1.elf
+the public mailing list cygwin@cygwin.com
+nios2-elf-g++  -T'../assignment1_bsp//linker.x' -msys-crt0='../assignment1_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../assignment1_bsp/   -Wl,-Map=assignment1.map   -O0 -g -Wall   -EL -mno-hw-div -mhw-mul -mno-hw-mulx  -o assignment1.elf obj/default/trafficController.o -lm 
+nios2-elf-insert assignment1.elf --thread_model hal --cpu_name cpu --qsys true --simulation_enabled false --id 309768158 --sidp 0x10110b0 --timestamp 1502656663 --stderr_dev jtag_uart --stdin_dev jtag_uart --stdout_dev jtag_uart --sopc_system_name system --quartus_project_dir "C:/Users/mark_/Documents/COMPSYS_303/303Assignments" --sopcinfo C:/Users/mark_/Documents/COMPSYS_303/303Assignments/system.sopcinfo
+      0 [main] sh 1864 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] uname 244 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 3928 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+Info: (assignment1.elf) 69 KBytes program size (code + initialized data).
+Info:                   8115 KBytes free for stack + heap.
+      0 [main] echo 2800 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+Info: Creating assignment1.objdump
+the public mailing list cygwin@cygwin.com
+nios2-elf-objdump --disassemble --syms --all-header --source assignment1.elf >assignment1.objdump
+      1 [main] sh 4452 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      1 [main] sh 6988 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[assignment1 build complete]
+
+**** Build Finished ****
+
+**** Build of configuration Nios II for project assignment1_bsp ****
+
+make all 
+      0 [main] pwd 11640 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 9944 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+      0 [main] sh 9620 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+[BSP build complete]
+
+**** Build Finished ****
