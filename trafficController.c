@@ -1,7 +1,4 @@
-/* Traffic Light Controller
- *
- * --- Code is best viewed with the tab size of 4. ---
- */
+/* Traffic Light Controller */
 
 #include <system.h>
 #include <sys/alt_alarm.h>
@@ -13,22 +10,15 @@
 #include <string.h>
 #include <ctype.h>
 
-// A template for COMPSYS 303 Assignment 1
-//
-// NOTE: You do not need to use this! Feel free
-// to write your own code from scratch if you
-// want, this is purely an example
-
-// FUNCTION PROTOTYPES
-// Timer ISRs
+// FUNCTION PROTOTYPES ========================
+// Timer ISRs ---------------------------------
 alt_u32 tlc_timer_isr(void* context);
 alt_u32 camera_timer_isr(void* context);
 
-//  Misc
-// Others maybe added eg LEDs / UART
+// Misc ---------------------------------------
 void lcd_set_mode(unsigned int mode);
 
-// TLC state machine functions
+// TLC state machine functions ----------------
 void init_tlc(void);
 void simple_tlc(int* state);
 void pedestrian_tlc(int* state);
@@ -36,82 +26,75 @@ void configurable_tlc(int* state);
 int config_tlc(int *tl_state);
 void camera_tlc(int* state);
 
-// Button Inputs / Interrupts
+// Button Inputs / Interrupts -----------------
 void buttons_driver(int* button);
 void handle_mode_button(unsigned int* taskid);
 void handle_vehicle_button(void);
 void init_buttons_pio(void);
 void NSEW_ped_isr(void* context, alt_u32 id);
 
-// Red light Camera
+// Red light Camera ---------------------------
 void clear_vehicle_detected(void);
 void vehicle_checked(void);
 int is_vehicle_detected(void);
 int is_vehicle_left(void);
 
-// Configuration Functions
+// Configuration Functions --------------------
 int update_timeout(void);
 void config_isr(void* context, alt_u32 id);
 void buffer_timeout(unsigned int value);
 void timeout_data_handler(void);
 
-
-// CONSTANTS
+// CONSTANTS ==================================
 #define OPERATION_MODES 0x03	// number of operation modes (00 - 03 = 4 modes)
 #define CAMERA_TIMEOUT	2000	// timeout period of red light camera (in ms)
 #define TIMEOUT_NUM 6			// number of timeouts
 #define TIME_LEN 8				// buffer length for time digits
 
-
-// USER DATA TYPES
-// Timeout buffer structure
+// USER DATA TYPES ============================
+// Timeout buffer structure -------------------
 typedef struct  {
 	int index;
 	unsigned int timeout[TIMEOUT_NUM];
 } TimeBuf;
 
-
-// GLOBAL VARIABLES
+// GLOBAL VARIABLES ===========================
 static alt_alarm tlc_timer;		// alarm used for traffic light timing
 static alt_alarm camera_timer;	// alarm used for camera timing
 
-// NOTE:
+// NOTE: --------------------------------------
 // set contexts for ISRs to be volatile to avoid unwanted Compiler optimisation
 static volatile int tlc_timer_event = 0;
 static volatile int camera_timer_event = 0;
 static volatile int pedestrianNS = 0;
 static volatile int pedestrianEW = 0;
 
-// 4 States of 'Detection':
-// Car Absent
-// Car Enters
-// Car is Detected running a Red
-// Car Leaves
+// 4 States of 'Detection': -------------------
+// Car Absent : 0
+// Car Enters : 1
+// Car is Detected running a Red : 2
+// Car Leaves : 3
 static int vehicle_detected = 0;
 
-// Traffic light timeouts
+// Traffic light timeouts ---------------------
 static unsigned int timeout[TIMEOUT_NUM] = {500, 6000, 2000, 500, 6000, 2000};
 static TimeBuf timeout_buf = { -1, {500, 6000, 2000, 500, 6000, 2000} };
 
-// UART
+// UART ---------------------------------------
 FILE* fp;
 
-// Traffic light LED values
+// Traffic light LED values -------------------
 //static unsigned char traffic_lights[TIMEOUT_NUM] = {0x90, 0x50, 0x30, 0x90, 0x88, 0x84};
 // NS RGY | EW RGY
 // NR,NG | NY,ER,EG,EY
 static unsigned char traffic_lights[TIMEOUT_NUM] = {0x24, 0x14, 0x0C, 0x24, 0x22, 0x21};
 
-enum traffic_states {RR0, GR, YR, RR1, RG, RY};
-
+enum traffic_states {RR0, GR, YR, RR1, RG, RY}; // Traffic states
 static unsigned int mode = 0;
-// Process states: use -1 as initialization state
-static int proc_state[OPERATION_MODES + 1] = {-1, -1, -1, -1};
+static int proc_state[OPERATION_MODES + 1] = {-1, -1, -1, -1}; // Process states: use -1 as initialization state
 
-// Initialize the traffic light controller
-// for any / all modes
-void init_tlc(void)
-{
+// Initialize the traffic light controller for all modes
+void init_tlc(void) {
 	
 }
 	
@@ -120,8 +103,7 @@ void init_tlc(void)
  * PARAMETER:   mode - the current mode
  * RETURNS:     none
  */
-void lcd_set_mode(unsigned int mode)
-{
+void lcd_set_mode(unsigned int mode) {
   
 }
 
@@ -129,8 +111,7 @@ void lcd_set_mode(unsigned int mode)
  * PARAMETER:   button - referenced argument to indicate the state of the button
  * RETURNS:     none
  */
-void buttons_driver(int* button)
-{
+void buttons_driver(int* button) {
 	// Persistant state of 'buttons_driver'
 	static int state = 0;
 	
@@ -144,8 +125,7 @@ void buttons_driver(int* button)
  * PARAMETER:   taskid - current task ID
  * RETURNS:     none
  */
-void handle_mode_button(unsigned int* taskid)
-{
+void handle_mode_button(unsigned int* taskid) {
 	// Increment mode
 	// Update Mode-display
 }
@@ -155,8 +135,7 @@ void handle_mode_button(unsigned int* taskid)
  * PARAMETER:   state - state of the controller
  * RETURNS:     none
  */
-void simple_tlc(int* state)
-{
+void simple_tlc(int* state) {
 	if (*state == -1) {
 		// Process initialization state
 		init_tlc();
@@ -177,8 +156,7 @@ void simple_tlc(int* state)
  * RETURNS:     Number of 'ticks' until the next timer interrupt. A return value
  *              of zero stops the timer. 
  */
-alt_u32 tlc_timer_isr(void* context)
-{
+alt_u32 tlc_timer_isr(void* context) {
 	volatile int* trigger = (volatile int*)context;
 	*trigger = 1;
 	return 0;
@@ -189,8 +167,7 @@ alt_u32 tlc_timer_isr(void* context)
  * PARAMETER:   none
  * RETURNS:     none
  */
-void init_buttons_pio(void)
-{
+void init_buttons_pio(void) {
 	// Initialize NS/EW pedestrian button		
 	// Reset the edge capture register
 	
@@ -201,8 +178,7 @@ void init_buttons_pio(void)
  * PARAMETER:   state - state of the controller
  * RETURNS:     none
  */
-void pedestrian_tlc(int* state)
-{	
+void pedestrian_tlc(int* state) {	
 	if (*state == -1) {
 		// Process initialization state
 		init_tlc();
@@ -222,8 +198,7 @@ void pedestrian_tlc(int* state)
  *              id - hardware interrupt number for the device
  * RETURNS:     none
  */
-void NSEW_ped_isr(void* context, alt_u32 id)
-{
+void NSEW_ped_isr(void* context, alt_u32 id) {
 	// NOTE:
 	// Cast context to volatile to avoid unwanted compiler optimization.
 	// Store the value in the Button's edge capture register in *context
@@ -240,8 +215,7 @@ void NSEW_ped_isr(void* context, alt_u32 id)
 If there is new configuration data... Load it.
 Else run pedestrian_tlc();
 */
-void configurable_tlc(int* state)
-{	
+void configurable_tlc(int* state) {	
 	if (*state == -1) {
 		// Process initialization state
 		return;
@@ -259,8 +233,7 @@ void configurable_tlc(int* state)
 /*
 Puts the TLC in a 'safe' state... then begins update
 */
-int config_tlc(int* tl_state)
-{
+int config_tlc(int* tl_state) {
 	// State of configuration
 	static int state = 0;
 	
@@ -281,8 +254,7 @@ int config_tlc(int* tl_state)
 /*
  buffer_timeout() must be used 'for atomic transfer to the main timeout buffer'
 */
-void timeout_data_handler(void)
-{
+void timeout_data_handler(void) {
 	
 }
 
@@ -292,8 +264,7 @@ void timeout_data_handler(void)
  * PARAMETER:   value - value to store in the buffer
  * RETURNS:     none
  */
-void buffer_timeout(unsigned int value)
-{
+void buffer_timeout(unsigned int value) {
 	
 }
 
@@ -304,8 +275,7 @@ void buffer_timeout(unsigned int value)
  * PARAMETER:   none
  * RETURNS:     1 if update is completed; 0 otherwise
  */
-int update_timeout(void)
-{
+int update_timeout(void) {
 	
 }
 
@@ -314,8 +284,7 @@ int update_timeout(void)
  * RETURNS:     Number of 'ticks' until the next timer interrupt. A return value
  *              of zero stops the timer. 
  */
-alt_u32 camera_timer_isr(void* context)
-{
+alt_u32 camera_timer_isr(void* context) {
 	volatile int* trigger = (volatile int*)context;
 	*trigger = 1;
 	return 0;
@@ -329,8 +298,7 @@ alt_u32 camera_timer_isr(void* context)
  Same functionality as configurable_tlc
  But also handles Red-light camera
  */
-void camera_tlc(int* state)
-{
+void camera_tlc(int* state) {
 	if (*state == -1) {
 		configurable_tlc(state);
 		return;
@@ -343,37 +311,39 @@ void camera_tlc(int* state)
  * PARAMETER:   none
  * RETURNS:     none
  */
-void handle_vehicle_button(void)
-{
+void handle_vehicle_button(void) {
 	
 }
 
 // set vehicle_detected to 'no vehicle' state
-void clear_vehicle_detected(void) 
-{  
+void clear_vehicle_detected(void) {  
+	vehicle_detected = 0;
 }
 // set vehicle_detected to 'checking' state
-void vehicle_checked(void) 
-{
+void vehicle_checked(void) {
+
 }
 // return true or false if a vehicle has been detected
-int is_vehicle_detected(void) 
-{
+int is_vehicle_detected(void) {
+	if (vehicle_detected == 1 || vehicle_detected == 2) {
+		return true;
+	} else {
+		return false;
+	}
 }
 // return true or false if the vehicle has left the intersection yet
-int is_vehicle_left(void) 
-{
+int is_vehicle_left(void) {
+	if (vehicle_detected == 3) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
-
-
-
-
-int main(void)
-{	
+int main(void) {	
 	int buttons = 0;			// status of mode button
 	
-	lcd_set_mode(0);		// initialize lcd
+	lcd_set_mode(0);			// initialize lcd
 	init_buttons_pio();			// initialize buttons
 	while (1) {
 		// Button detection & debouncing
