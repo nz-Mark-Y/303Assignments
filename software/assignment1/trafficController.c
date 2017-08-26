@@ -19,7 +19,7 @@ alt_u32 camera_timer_isr(void* context);
 void lcd_set_mode(unsigned int mode, FILE* lcd);
 
 // TLC state machine functions ----------------
-void init_tlc(void);
+void init_tlc();
 void simple_tlc(int* state);
 void pedestrian_tlc(int* state);
 void configurable_tlc(int* state);
@@ -95,8 +95,9 @@ static int proc_state[OPERATION_MODES + 1] = {-1, -1, -1, -1}; // Process states
 
 // Code =======================================
 // Initialise the traffic light controller for all modes
-void init_tlc(void) {
-
+void init_tlc() {
+	void* timerContext = (void*) mode;
+	alt_alarm_start(&tlc_timer, 1000, tlc_timer_isr, timerContext);
 }
 
 /* DESCRIPTION: Writes the mode to the LCD screen
@@ -169,8 +170,10 @@ void simple_tlc(int* state) {
  */
 alt_u32 tlc_timer_isr(void* context) {
 	volatile int* trigger = (volatile int*)context;
-	*trigger = 1;
-	return 0;
+	int	nextTimeout = timeout[proc_state[*trigger]];
+	printf("next timeout:%d\n", nextTimeout);
+	tlc_timer_event = 0;
+	return nextTimeout;
 }
 
 /* DESCRIPTION: Handles the NSEW pedestrian button interrupt
@@ -183,6 +186,7 @@ void NSEW_ped_isr(void* context, alt_u32 id) {
 		volatile int* temp = (volatile int*) context;
 		(*temp) = IORD_ALTERA_AVALON_PIO_EDGE_CAP(BUTTONS_BASE);
 		IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTONS_BASE, 0); // clear the edge capture register
+		pedestrianNS = 1;
 		printf("button: %i\n", *temp);
 	}
 
@@ -190,6 +194,7 @@ void NSEW_ped_isr(void* context, alt_u32 id) {
 		volatile int* temp = (volatile int*) context;
 		(*temp) = IORD_ALTERA_AVALON_PIO_EDGE_CAP(BUTTONS_BASE); // KEY 1 = EW Pedestrian button
 		IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTONS_BASE, 0); // clear the edge capture register
+		pedestrianEW = 0;
 		printf("button: %i\n", *temp);
 	}
 }
@@ -213,16 +218,38 @@ void init_buttons_pio(void) {
  */
 void pedestrian_tlc(int* state) {
 	if (*state == -1) {
-		// Process initialisation state
-		init_tlc();
+		init_tlc(0);
 		(*state)++;
 		return;
 	}
 
-	// Same as simple TLC
-	// with additional states / signals for Pedestrian crossings
-
-
+	if (tlc_timer_event == 1) {
+		if (*state == 0) { // R, R state
+			if (pedestrianNS == 0) {
+				*state = 1; // G, R
+			} else {
+				*state = 1; // G, R
+				pedestrianNS = 0;
+			}
+		} else if (*state == 1) {
+			*state = 2; // Y, R
+		} else if (*state == 2) {
+			*state = 3; // R, R
+		} else if (*state == 3) {
+			if (pedestrianEW == 0) {
+				*state = 4; // R, G
+			} else {
+				*state = 4; // R, G, P2
+				pedestrianEW = 0;
+			}
+		} else if (*state == 4) {
+			*state = 5; // R, Y
+		} else {
+			*state = 0; // R, R
+		}
+		tlc_timer_event = 0;
+		return;
+	}
 }
 
 /* DESCRIPTION: Configurable traffic light controller
@@ -365,6 +392,7 @@ int main(void) {
 
 	lcd_set_mode(0, lcd);		// initialise lcd
 	init_buttons_pio();			// initialise buttons
+
 	while (1) {
 		// Button detection & debouncing
 		buttons_driver(&buttons);
