@@ -36,8 +36,9 @@ void NSEW_ped_isr(void* context, alt_u32 id);
 // Configuration Functions --------------------
 int update_timeout(void);
 void config_isr(void* context, alt_u32 id);
-void buffer_timeout(unsigned int value);
+void buffer_timeout(int value);
 void timeout_data_handler(void);
+void printToUART(char* stringToPrint);
 
 // CONSTANTS ==================================
 #define OPERATION_MODES 0x03	// number of operation modes (00 - 03 = 4 modes)
@@ -120,13 +121,15 @@ void lcd_set_mode(unsigned int mode, FILE* lcd) {
  */
 void buttons_driver(unsigned int* button) {
 	if ((IORD_ALTERA_AVALON_PIO_DATA(BUTTONS_BASE) & 0x08) == 0) { // KEY 3
-		if (*button < 4) {
-			*button = *button + 1;
-		} else {
-			*button = 0;
+		if ((proc_state[*button] == 0) || (proc_state[*button] == 3)) {
+			if (*button < 4) {
+				*button = *button + 1;
+			} else {
+				*button = 0;
+			}
+			proc_state[*button] = -1;
+			handle_mode_button(button);
 		}
-		proc_state[*button] = -1;
-		handle_mode_button(button);
 	}
 
 	if ((IORD_ALTERA_AVALON_PIO_DATA(BUTTONS_BASE) & 0x04) == 0) { // KEY 2
@@ -222,14 +225,6 @@ void NSEW_ped_isr(void* context, alt_u32 id) {
 		pedestrianEW = 1;
 		printf("button: %i\n", *temp);
 	}
-	
-	if ((IORD_ALTERA_AVALON_PIO_DATA(BUTTONS_BASE) & 0x04) == 0) {
-		
-		// KEY 2 = Button to indicate new values to be read
-		IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTONS_BASE, 0); // clear the edge capture register
-		newTimeoutValues = 1;
-		printf("Loading new timeout values\n");
-	}
 }
 
 /* DESCRIPTION: Initialise the interrupts for pedestrian buttons
@@ -285,7 +280,7 @@ void pedestrian_tlc(int* state) {
 		} else if (*state == 4) {
 			*state = 5; // R, Y
 			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x22);
-		} else {//this accounts for state 5
+		} else {	// this accounts for state 5
 			*state = 0; // R, R
 			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);
 		}
@@ -303,28 +298,20 @@ If there is new configuration data... Load it.
 Else run pedestrian_tlc();
 */
 void configurable_tlc(int* state) {
-	/*
-	if (*state == -1) {
-		// Process initialisation state
-		return;
-	}*/
 	if (*state == -1) {
 		init_tlc();
 		(*state)++;
 		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);
 		return;
 	}
-	if (((*state == 0) || (*state == 3))&& (newTimeoutValues == 1)){		
+	newTimeoutValues = IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE);
+	if (((*state == 0) || (*state == 3))&& (newTimeoutValues > 0)){
 		timeout_data_handler();	
 		newTimeoutValues = 0;
-		
 	} else {
 		pedestrian_tlc(state);
 	}
-
-
 }
-
 
 /* DESCRIPTION: Implements the state machine of the traffic light controller in
  *              the ***configuration*** phase
@@ -356,23 +343,25 @@ int config_tlc(int* tl_state) {
  buffer_timeout() must be used 'for atomic transfer to the main timeout buffer'
 */
 void timeout_data_handler(void) {
-	fp = fopen(UART_NAME, "r"); // open up UART with read access
-	if (fp != NULL) // check if the UART is open successfully
-	{
-		//fprintf(fp, "%s", stringToOutput); // use fprintf to write things to file
+	fp = fopen(UART_NAME, "rw"); // open up UART with read and write access
+	if (fp != NULL) {// check if the UART is open successfully
 		int k = 0;
-		while(1){
+		while(1) {
 			c = fgetc(fp);
-			if(c=='\n'){
+			if (c== '\n') {
 				break;
 			} 
-			if(c=='\r'){
+			if (c == '\r') {
 				break;
 			}
-			if(c==','){
+			if (c == ',') {
 				sscanf(chararray, "%d", &timeoutValue);
 				tempBuffer[valueCount] = timeoutValue;
-				chararray = {'0', '0', '0', '0', '\0'};
+				chararray[0] = '0';
+				chararray[1] = '0';
+				chararray[2] = '0';
+				chararray[3] = '0';
+				chararray[4] = '\0';
 				k = 0;
 				valueCount += 1;
 			} else {
@@ -382,13 +371,13 @@ void timeout_data_handler(void) {
 		}
 		fclose(fp); // remember to close the file
 	}
-	if(valueCount == 6){
-		for(int j = 0; j<6; j++){
+	if (valueCount == 6) {
+		int j;
+		for (j=0; j<6; j++) {
 			timeout[j]=tempBuffer[j];
 		}
 	}
 	valueCount = 0;
-	return 0;
 }
 
 
@@ -397,7 +386,7 @@ void timeout_data_handler(void) {
  * PARAMETER:   value - value to store in the buffer
  * RETURNS:     none
  */
-void buffer_timeout( int value) {
+void buffer_timeout(int value) {
 
 }
 
@@ -422,11 +411,14 @@ alt_u32 camera_timer_isr(void* context) {
 	volatile int* trigger = (volatile int*)context;
 	(*trigger)++;
 	if (*trigger == CAMERA_TIMEOUT) {
-		// print snapshot taken
+		printToUART("Snapshot Taken");
 		return 0;
 	}
 	if (vehicle_detected != 2) {
-		// print trigger, vehicle left
+		char countString[10];
+		sprintf(countString, "%d", *trigger);
+		printToUART("Vehicle left at: ");
+		printToUART(countString);
 		vehicle_detected = 0;
 		return 0;
 	}
@@ -443,54 +435,33 @@ alt_u32 camera_timer_isr(void* context) {
  */
 void camera_tlc(int* state) {
 	if (*state == -1) {
-		configurable_tlc(state);
+		init_tlc();
+		(*state)++;
 		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);
 		return;
 	}
-
-	if (tlc_timer_event == 1) {
-		if (*state == 0) { // R, R state
-			if (pedestrianNS == 0) {
-				*state = 1; // G, R
-				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x0C);
-			} else {
-				*state = 1; // G, R
-				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x4C);
-				pedestrianNS = 0;
-			}
-		} else if (*state == 1) {
-			*state = 2; // Y, R
-			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x14);
-		} else if (*state == 2) {
-			*state = 3; // R, R
-			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);
-		} else if (*state == 3) {
-			if (pedestrianEW == 0) {
-				*state = 4; // R, G
-				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x21);
-			} else {
-				*state = 4; // R, G, P2
-				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0xA1);
-				pedestrianEW = 0;
-			}
-		} else if (*state == 4) {
-			*state = 5; // R, Y
-			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x22);
-		} else {
-			*state = 0; // R, R
-			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);
-		}
-		tlc_timer_event = 0;
-		return;
+	newTimeoutValues = IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE);
+	if (((*state == 0) || (*state == 3))&& (newTimeoutValues > 0)){
+		timeout_data_handler();
+		newTimeoutValues = 0;
+	} else {
+		pedestrian_tlc(state);
 	}
 
 	if (((*state == 2) || (*state == 5)) && (vehicle_detected == 1)) { // One light yellow and vehicle enters
-		// print camera activated
+		printToUART("Camera Activated");
 		vehicle_detected = 2;
 		void* cameraContext = (void*) camera_count;
 		alt_alarm_start(&camera_timer, 1, camera_timer_isr, cameraContext);
 	}
+}
 
+void printToUART(char* stringToPrint) {
+	fp = fopen(UART_NAME, "w");
+	if (fp != NULL) {
+		fprintf(fp, "%s", stringToPrint);
+		fclose(fp);
+	}
 }
 
 /* DESCRIPTION: Simulates the entry and exit of vehicles at the intersection
