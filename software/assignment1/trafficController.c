@@ -147,6 +147,7 @@ void simple_tlc(int* state) {
 		// Process initialisation state
 		init_tlc();
 		(*state)++;
+		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);//both traffic lights will be red by default
 		return;
 	}
 
@@ -155,6 +156,29 @@ void simple_tlc(int* state) {
 		// Increase state number (within bounds)
 		// Restart timer with new timeout value
 	*/
+	if (tlc_timer_event == 1) {
+		if (*state == 0) { // R, R state
+			*state = 1; // G, R
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x4C);			
+		} else if (*state == 1) {
+			*state = 2; // Y, R
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x14);
+		} else if (*state == 2) {
+			*state = 3; // R, R
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);
+		} else if (*state == 3) {
+			*state = 4; // R, G
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0xA1);			
+		} else if (*state == 4) {
+			*state = 5; // R, Y
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x22);
+		} else {
+			*state = 0; // R, R
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);
+		}
+		tlc_timer_event = 0;
+		return;
+	}
 }
 
 
