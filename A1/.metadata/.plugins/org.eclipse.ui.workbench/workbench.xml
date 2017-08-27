@@ -35,7 +35,7 @@
 </editorArea>
 <editor activePart="true" focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="trafficController.c" partName="trafficController.c" path="C:/Users/mark_/Documents/COMPSYS_303/303Assignments/software/assignment1/trafficController.c" title="trafficController.c" tooltip="assignment1/trafficController.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/assignment1/trafficController.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="7269" selectionTopPixel="4254"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="13469" selectionTopPixel="8573"/>
 </editor>
 </editors>
 <views>
@@ -47,10 +47,11 @@
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
 <expanded>
-<category IMemento.internal.id="Warnings (6 items)"/>
+<category IMemento.internal.id="Errors"/>
 <category IMemento.internal.id="Warnings"/>
+<category IMemento.internal.id="Warnings (9 items)"/>
 </expanded>
-<columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="300"/>
+<columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="492"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
@@ -273,6 +274,7 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/assignment1/hello_world.c"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/assignment1/trafficLightController.c"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/assignment1/trafficController.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/assignment1_bsp/system.h"/>
 </editors>
 <item historyLabel="hello_world.c" index="0">
 <position info="not_deleted" x="0" y="0"/>
@@ -367,8 +369,62 @@
 <item historyLabel="trafficController.c" index="2">
 <position info="not_deleted" x="7397" y="0"/>
 </item>
-<item active="true" historyLabel="trafficController.c" index="2">
+<item historyLabel="trafficController.c" index="2">
 <position info="not_deleted" x="7269" y="0"/>
+</item>
+<item historyLabel="trafficController.c" index="2">
+<position info="not_deleted" x="7548" y="0"/>
+</item>
+<item historyLabel="trafficController.c" index="2">
+<position info="not_deleted" x="7808" y="0"/>
+</item>
+<item historyLabel="trafficController.c" index="2">
+<position info="not_deleted" x="7899" y="0"/>
+</item>
+<item historyLabel="trafficController.c" index="2">
+<position info="not_deleted" x="5467" y="0"/>
+</item>
+<item historyLabel="trafficController.c" index="2">
+<position info="not_deleted" x="5473" y="0"/>
+</item>
+<item historyLabel="trafficController.c" index="2">
+<position info="not_deleted" x="599" y="0"/>
+</item>
+<item historyLabel="trafficController.c" index="2">
+<position info="not_deleted" x="4901" y="11"/>
+</item>
+<item historyLabel="trafficController.c" index="2">
+<position info="not_deleted" x="7300" y="0"/>
+</item>
+<item historyLabel="trafficController.c" index="2">
+<position info="not_deleted" x="3470" y="0"/>
+</item>
+<item historyLabel="trafficController.c" index="2">
+<position info="not_deleted" x="1284" y="10"/>
+</item>
+<item historyLabel="trafficController.c" index="2">
+<position info="not_deleted" x="12455" y="0"/>
+</item>
+<item historyLabel="trafficController.c" index="2">
+<position info="not_deleted" x="12037" y="0"/>
+</item>
+<item historyLabel="trafficController.c" index="2">
+<position/>
+</item>
+<item historyLabel="system.h" index="3">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="trafficController.c" index="2">
+<position info="not_deleted" x="12325" y="0"/>
+</item>
+<item historyLabel="trafficController.c" index="2">
+<position info="not_deleted" x="13497" y="0"/>
+</item>
+<item historyLabel="trafficController.c" index="2">
+<position info="not_deleted" x="13485" y="0"/>
+</item>
+<item active="true" historyLabel="trafficController.c" index="2">
+<position info="not_deleted" x="13442" y="45"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -388,6 +444,9 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="system.h" tooltip="assignment1_bsp/system.h">
+<persistable path="/assignment1_bsp/system.h"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="trafficLightController.c" tooltip="assignment1/trafficLightController.c">
 <persistable path="/assignment1/trafficLightController.c"/>
 </file>

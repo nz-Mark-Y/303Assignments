@@ -226,27 +226,27 @@ void pedestrian_tlc(int* state) {
 				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x0C);
 			} else {
 				*state = 1; // G, R
-				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x4C);
+				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0b01001100);
 				pedestrianNS = 0;
 			}
 		} else if (*state == 1) {
 			*state = 2; // Y, R
-			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x14);
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0b00010100);
 		} else if (*state == 2) {
 			*state = 3; // R, R
-			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0b00100100);
 		} else if (*state == 3) {
 			if (pedestrianEW == 0) {
 				*state = 4; // R, G
-				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x21);
+				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0b00100001);
 			} else {
 				*state = 4; // R, G, P2
-				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0xA1);
+				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0b10100001);
 				pedestrianEW = 0;
 			}
 		} else if (*state == 4) {
 			*state = 5; // R, Y
-			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x22);
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0b00100010);
 		} else {
 			*state = 0; // R, R
 			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);
@@ -371,27 +371,27 @@ void camera_tlc(int* state) {
 				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x0C);
 			} else {
 				*state = 1; // G, R
-				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x4C);
+				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0b01001100);
 				pedestrianNS = 0;
 			}
 		} else if (*state == 1) {
 			*state = 2; // Y, R
-			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x14);
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0b00010100);
 		} else if (*state == 2) {
 			*state = 3; // R, R
-			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0b00100100);
 		} else if (*state == 3) {
 			if (pedestrianEW == 0) {
 				*state = 4; // R, G
-				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x21);
+				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0b00100001);
 			} else {
 				*state = 4; // R, G, P2
-				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0xA1);
+				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0b10100001);
 				pedestrianEW = 0;
 			}
 		} else if (*state == 4) {
 			*state = 5; // R, Y
-			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x22);
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0b00100010);
 		} else {
 			*state = 0; // R, R
 			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);
@@ -448,14 +448,7 @@ int main(void) {
 				camera_tlc(&proc_state[3]);
 				break;
 		}
-    	if(lcd != NULL) {
-    		#define ESC 27
-    		#define CLEAR_LCD_STRING "[2J"
-    		fprintf(lcd, "%c%s", ESC, CLEAR_LCD_STRING);
-    		fprintf(lcd, "Mode: %d\n",mode);
-    		fprintf(lcd, "State: %d\n",proc_state[mode]);
-    	}
-
+		// Update Displays
 	}
 	fclose(lcd);
 	return 1;

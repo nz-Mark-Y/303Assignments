@@ -448,14 +448,6 @@ int main(void) {
 				camera_tlc(&proc_state[3]);
 				break;
 		}
-    	if(lcd != NULL) {
-    		#define ESC 27
-    		#define CLEAR_LCD_STRING "[2J"
-    		fprintf(lcd, "%c%s", ESC, CLEAR_LCD_STRING);
-    		fprintf(lcd, "Mode: %d\n",mode);
-    		fprintf(lcd, "State: %d\n",proc_state[mode]);
-    	}
-
 	}
 	fclose(lcd);
 	return 1;
