@@ -62,6 +62,7 @@ static volatile int tlc_timer_event = 0;
 static volatile int camera_timer_event = 0;
 static volatile int pedestrianNS = 0;
 static volatile int pedestrianEW = 0;
+static volatile int newTimeoutValues = 0;
 
 // 4 States of 'Detection': -------------------
 // Car Absent : 0
@@ -76,6 +77,11 @@ static TimeBuf timeout_buf = { -1, {500, 6000, 2000, 500, 6000, 2000} };
 
 // UART ---------------------------------------
 FILE* fp;
+static volatile int c;
+static volatile int timeoutValue;
+char chararray[5] = {'0', '0', '0', '0', '\0'};
+static volatile int valueCount = 0;
+static unsigned int tempBuffer[TIMEOUT_NUM] = {500, 6000, 2000, 500, 6000, 2000};
 
 // Traffic light LED values -------------------
 //static unsigned char traffic_lights[TIMEOUT_NUM] = {0x90, 0x50, 0x30, 0x90, 0x88, 0x84};
@@ -191,7 +197,7 @@ alt_u32 tlc_timer_isr(void* context) {
 	volatile int* trigger = (volatile int*)context;
 	int	nextTimeout = timeout[proc_state[*trigger]];
 	printf("next timeout:%d\n", nextTimeout);
-	tlc_timer_event = 0;
+	tlc_timer_event = 1;
 	return nextTimeout;
 }
 
@@ -213,8 +219,16 @@ void NSEW_ped_isr(void* context, alt_u32 id) {
 		volatile int* temp = (volatile int*) context;
 		(*temp) = IORD_ALTERA_AVALON_PIO_EDGE_CAP(BUTTONS_BASE); // KEY 1 = EW Pedestrian button
 		IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTONS_BASE, 0); // clear the edge capture register
-		pedestrianEW = 0;
+		pedestrianEW = 1;
 		printf("button: %i\n", *temp);
+	}
+	
+	if ((IORD_ALTERA_AVALON_PIO_DATA(BUTTONS_BASE) & 0x04) == 0) {
+		
+		// KEY 2 = Button to indicate new values to be read
+		IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTONS_BASE, 0); // clear the edge capture register
+		newTimeoutValues = 1;
+		printf("Loading new timeout values\n");
 	}
 }
 
@@ -271,7 +285,7 @@ void pedestrian_tlc(int* state) {
 		} else if (*state == 4) {
 			*state = 5; // R, Y
 			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x22);
-		} else {
+		} else {//this accounts for state 5
 			*state = 0; // R, R
 			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);
 		}
@@ -289,9 +303,23 @@ If there is new configuration data... Load it.
 Else run pedestrian_tlc();
 */
 void configurable_tlc(int* state) {
+	/*
 	if (*state == -1) {
 		// Process initialisation state
 		return;
+	}*/
+	if (*state == -1) {
+		init_tlc();
+		(*state)++;
+		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);
+		return;
+	}
+	if (((*state == 0) || (*state == 3))&& (newTimeoutValues == 1)){		
+		timeout_data_handler();	
+		newTimeoutValues = 0;
+		
+	} else {
+		pedestrian_tlc(state);
 	}
 
 
@@ -328,7 +356,39 @@ int config_tlc(int* tl_state) {
  buffer_timeout() must be used 'for atomic transfer to the main timeout buffer'
 */
 void timeout_data_handler(void) {
-
+	fp = fopen(UART_NAME, "r"); // open up UART with read access
+	if (fp != NULL) // check if the UART is open successfully
+	{
+		//fprintf(fp, "%s", stringToOutput); // use fprintf to write things to file
+		int k = 0;
+		while(1){
+			c = fgetc(fp);
+			if(c=='\n'){
+				break;
+			} 
+			if(c=='\r'){
+				break;
+			}
+			if(c==','){
+				sscanf(chararray, "%d", &timeoutValue);
+				tempBuffer[valueCount] = timeoutValue;
+				chararray = {'0', '0', '0', '0', '\0'};
+				k = 0;
+				valueCount += 1;
+			} else {
+				chararray[k] = c;
+				k += 1;
+			}
+		}
+		fclose(fp); // remember to close the file
+	}
+	if(valueCount == 6){
+		for(int j = 0; j<6; j++){
+			timeout[j]=tempBuffer[j];
+		}
+	}
+	valueCount = 0;
+	return 0;
 }
 
 
@@ -337,7 +397,7 @@ void timeout_data_handler(void) {
  * PARAMETER:   value - value to store in the buffer
  * RETURNS:     none
  */
-void buffer_timeout(unsigned int value) {
+void buffer_timeout( int value) {
 
 }
 
