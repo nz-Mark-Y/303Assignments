@@ -2,25 +2,24 @@
 **** Build of configuration Nios II for project assignment1 ****
 
 make all 
-      0 [main] sh 1772 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
-the public mailing list cygwin@cygwin.com
-      0 [main] sh 3748 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
-the public mailing list cygwin@cygwin.com
-      0 [main] echo 4016 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
+/usr/bin/sh: line 0: cd: ../assignment1_bsp/: No such file or directory
+/usr/bin/sh: line 0: cd: ../../: No such file or directory
 Info: Building ../assignment1_bsp/
-the public mailing list cygwin@cygwin.com
 make --no-print-directory -C ../assignment1_bsp/
-      0 [main] pwd 11696 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
-the public mailing list cygwin@cygwin.com
-      0 [main] sh 13144 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
-the public mailing list cygwin@cygwin.com
-      0 [main] sh 5608 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
-the public mailing list cygwin@cygwin.com
-[BSP build complete]
-      0 [main] true 11184 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
-the public mailing list cygwin@cygwin.com
-      0 [main] sh 13908 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointer.  Please report this problem to
-the public mailing list cygwin@cygwin.com
-[assignment1 build complete]
+makefile:571: Warning: SOPC File C:/Users/mark_/Documents/COMPSYS_303/303Assignments/system.sopcinfo could not be found.
+Makefile not up to date.
+settings.bsp has been modified since the BSP Makefile was generated.
+
+Generate the BSP to update the Makefile, and then build again.
+
+To generate from Eclipse:
+ 1. Right-click the BSP project.
+ 2. In the Nios II Menu, click Generate BSP.
+
+To generate from the command line:
+ nios2-bsp-generate-files --settings=<settings file> --bsp-dir=<target bsp files directory>
+
+make[1]: *** [makefile] Error 1
+make: *** [../assignment1_bsp/-recurs-make-lib] Error 2
 
 **** Build Finished ****
