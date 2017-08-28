@@ -15,9 +15,6 @@
 alt_u32 tlc_timer_isr(void* context);
 alt_u32 camera_timer_isr(void* context);
 
-// Misc ---------------------------------------
-void lcd_set_mode(unsigned int mode, FILE* lcd);
-
 // TLC state machine functions ----------------
 void init_tlc();
 void simple_tlc(int* state);
@@ -38,6 +35,7 @@ int update_timeout(void);
 void config_isr(void* context, alt_u32 id);
 void buffer_timeout(int value);
 void timeout_data_handler(void);
+
 void printToUART(char* stringToPrint);
 
 // CONSTANTS ==================================
@@ -84,13 +82,6 @@ char chararray[5] = {'0', '0', '0', '0', '\0'};
 static volatile int valueCount = 0;
 static unsigned int tempBuffer[TIMEOUT_NUM] = {500, 6000, 2000, 500, 6000, 2000};
 
-// Traffic light LED values -------------------
-//static unsigned char traffic_lights[TIMEOUT_NUM] = {0x90, 0x50, 0x30, 0x90, 0x88, 0x84};
-// NS RGY | EW RGY
-// NR,NG | NY,ER,EG,EY
-static unsigned char traffic_lights[TIMEOUT_NUM] = {0x24, 0x14, 0x0C, 0x24, 0x22, 0x21};
-
-enum traffic_states {RR0, GR, YR, RR1, RG, RY}; // Traffic states
 static unsigned int mode = 0;
 static int proc_state[OPERATION_MODES + 1] = {-1, -1, -1, -1}; // Process states: use -1 as initialisation state
 static int camera_count = 0;
@@ -99,48 +90,8 @@ static int camera_count = 0;
 // Initialise the traffic light controller for all modes
 void init_tlc() {
 	void* timerContext = (void*) mode;
-	printf("started timer");
 	alt_alarm_start(&tlc_timer, timeout[0], tlc_timer_isr, timerContext);
 }
-
-/* DESCRIPTION: Writes the mode to the LCD screen
- * PARAMETER:   mode - the current mode
- * RETURNS:     none
- */
-void lcd_set_mode(unsigned int mode, FILE* lcd) {
-	if(lcd != NULL) {
-		#define ESC 27
-		#define CLEAR_LCD_STRING "[2J"
-		fprintf(lcd, "%c%s", ESC, CLEAR_LCD_STRING);
-		fprintf(lcd, "Mode: %d\n",mode);
-	}
-}
-
-/* DESCRIPTION: Performs button-press detection and debouncing
- * PARAMETER:   button - referenced argument to indicate the state of the button
- * RETURNS:     none
- */
-void buttons_driver(unsigned int* button) {
-	/*
-	if ((IORD_ALTERA_AVALON_PIO_DATA(BUTTONS_BASE) & 0x08) == 0) { // KEY 3
-		printf("key3 pressed");
-		if ((proc_state[*button] == 0) || (proc_state[*button] == 3)) {
-			if (*button < 4) {
-				*button = *button + 1;
-			} else {
-				*button = 0;
-			}
-			proc_state[*button] = -1;
-			handle_mode_button(button);
-		}
-	}
-	*/
-
-	if ((IORD_ALTERA_AVALON_PIO_DATA(BUTTONS_BASE) & 0x04) == 0) { // KEY 2
-		handle_vehicle_button();
-	}
-}
-
 
 /* DESCRIPTION: Simple traffic light controller
  * PARAMETER:   state - state of the controller
@@ -148,18 +99,12 @@ void buttons_driver(unsigned int* button) {
  */
 void simple_tlc(int* state) {
 	if (*state == -1) {
-		// Process initialisation state
 		init_tlc();
 		(*state)++;
-		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);//both traffic lights will be red by default
+		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);	// both traffic lights will be red by default
 		return;
 	}
 
-	// If the timeout has occurred
-	/*
-		// Increase state number (within bounds)
-		// Restart timer with new timeout value
-	*/
 	if (tlc_timer_event == 1) {
 		if (*state == 0) { // R, R state
 			*state = 1; // G, R
@@ -201,7 +146,8 @@ alt_u32 tlc_timer_isr(void* context) {
 		currentState = 0;
 	}
 	int	nextTimeout = timeout[currentState];
-	printf("next timeout:%d\n", nextTimeout);
+	printf("next timeout: %d\n", nextTimeout);
+	printf("next state: %d\n", currentState);
 	tlc_timer_event = 1;
 	return nextTimeout;
 }
@@ -250,15 +196,22 @@ void init_buttons_pio(void) {
  */
 void pedestrian_tlc(int* state) {
 	if (*state == -1) {
-		(*state)++;
-		printf("current state:%d\n", *state);
+		printf("initial state");
 		init_tlc();
+		(*state)++;
 		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);
 		return;
 	}
 
+	if (pedestrianNS == 1) {
+		print("pedestrian NS down, state: %d\n", *state)
+	}
+	if (pedestrianEW == 1) {
+		print("pedestrian EW down, state: %d\n", *state)
+	}
+
 	if (tlc_timer_event == 1) {
-		printf("current state test:%d\n", *state);
+		printf("current state: %d\n", *state);
 		if (*state == 0) { // R, R state
 			if (pedestrianNS == 0) {
 				*state = 1; // G, R
@@ -474,7 +427,7 @@ void printToUART(char* stringToPrint) {
  * PARAMETER:   none
  * RETURNS:     none
  */
-void handle_vehicle_button(void) {
+void handle_vehicle_button() {
 	if (vehicle_detected == 0) {
 		vehicle_detected = 1; // If vehicle absent, button press means vehicle has entered intersection
 	} else {
@@ -483,16 +436,15 @@ void handle_vehicle_button(void) {
 }
 
 int main(void) {
-	unsigned int buttons = 0;			// status of mode button
 	FILE *lcd;
 	lcd = fopen(LCD_NAME, "w");
 
-	lcd_set_mode(0, lcd);		// initialise lcd
 	init_buttons_pio();			// initialise buttons
 
 	while (1) {
-		// Button detection & debouncing
-		buttons_driver(&buttons);
+		if ((IORD_ALTERA_AVALON_PIO_DATA(BUTTONS_BASE) & 0x04) == 0) { // KEY 2
+			handle_vehicle_button();
+		}
 
 		if ((proc_state[mode] == -1) || (proc_state[mode] == 0) || (proc_state[mode] == 3)) {
 			if ((IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 0) || (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 4)) {
