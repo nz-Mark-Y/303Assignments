@@ -213,7 +213,7 @@ void pedestrian_tlc(int* state) {
 		if (*state == 0) { // R, R state
 			if (pedestrianNS == 1) {
 				*state = 1; // G, R
-				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x4C);
+				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x61);
 				pedestrianNS = 0;
 			} else {
 				*state = 1; // G, R
@@ -228,7 +228,7 @@ void pedestrian_tlc(int* state) {
 		} else if (*state == 3) {
 			if (pedestrianEW == 1) {
 				*state = 4; // R, G, P2
-				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0xA1);
+				IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x8C);
 				pedestrianEW = 0;
 			} else {
 				*state = 4; // R, G
