@@ -389,12 +389,12 @@ int update_timeout(void) {
 alt_u32 camera_timer_isr(void* context) {
 	volatile int* trigger = (volatile int*)context;
 	(*trigger)++;
-	if (*trigger == CAMERA_TIMEOUT) {
+	if (*trigger == CAMERA_TIMEOUT) {// if trigger value is equal to CAMERA_TIMEOUT then the traffic camera takes a snapshot
 		snapshotTaken = 1;
 		toPrint = 1;
 		return 0;
 	}
-	if (vehicle_detected != 2) {
+	if (vehicle_detected != 2) {//vehicle leaves the intersection before CAMERA_TIMEOUT time value is reached
 		int num = *trigger;
 		sprintf(countString, "%d", num);
 		printf(countString);
@@ -427,7 +427,7 @@ void camera_tlc(int* state) {
 			printToUART("Snapshot Taken\n\r");
 			toPrint = 0;
 		} else {
-			printToUART("Time taken: ");
+			printToUART("Time taken: ");//prints time taken to enter and leave the intersection
 			printToUART(countString);
 			printToUART("\n\r");
 			timeTaken = 0;
@@ -445,7 +445,7 @@ void camera_tlc(int* state) {
 		pedestrian_tlc(state);
 	}
 
-	if (((*state == 2) || (*state == 5)) && (vehicle_detected == 1)) { // One light yellow and vehicle enters
+	if (((*state == 2) || (*state == 5)) && (vehicle_detected == 1)) { // if vehicle enters while light is yellow, start the timer
 		printToUART("Camera Activated\n\r");
 		camera_count = 0;
 		vehicle_detected = 2;
@@ -471,29 +471,29 @@ int main(void) {
 	init_buttons_pio();			// initialise buttons
 
 	while (1) {
-		if ((proc_state[mode] == -1) || (proc_state[mode] == 0) || (proc_state[mode] == 3)) {
-			if ((IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 0) || (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 4)) {
+		if ((proc_state[mode] == -1) || (proc_state[mode] == 0) || (proc_state[mode] == 3)) {//we can only change modes when state is Red,Red (or state = -1)
+			if ((IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 0) || (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 4)) {//mode 0
 				if (mode != 0) {
 					mode = 0;
-					alt_alarm_stop(&tlc_timer);
+					alt_alarm_stop(&tlc_timer);//stop current timer when mode changes
 					proc_state[0] = -1;
 				}
 			}
-			if ((IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 1) || (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 5)) {
+			if ((IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 1) || (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 5)) {//mode 1
 				if (mode != 1) {
 					mode = 1;
 					alt_alarm_stop(&tlc_timer);
 					proc_state[1] = -1;
 				}
 			}
-			if ((IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 2) || (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 6)) {
+			if ((IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 2) || (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 6)) {//mode 2
 				if (mode != 2) {
 					mode = 2;
 					alt_alarm_stop(&tlc_timer);
 					proc_state[2] = -1;
 				}
 			}
-			if ((IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 3) || (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 7)) {
+			if ((IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 3) || (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 7)) {//mode 3
 				if (mode != 3) {
 					mode = 3;
 					alt_alarm_stop(&tlc_timer);
@@ -502,7 +502,7 @@ int main(void) {
 			}
 		}
 
-    	if(lcd != NULL) {
+    	if(lcd != NULL) {//display strings on LCD
     		#define ESC 27
     		#define CLEAR_LCD_STRING "[2J"
     		fprintf(lcd, "%c%s", ESC, CLEAR_LCD_STRING);
@@ -511,7 +511,7 @@ int main(void) {
     	}
 
 		// Execute the correct TLC
-    	switch (mode) {
+    	switch (mode) {//exceute the appropriate tlc depending on the current mode
 			case 0:
 				simple_tlc(&proc_state[0]);
 				break;
