@@ -1,7 +1,7 @@
 
-**** Build of configuration Nios II for project a1projectagain_bsp ****
+**** Clean-only build of configuration Nios II for project a1projectagain_bsp ****
 
-make all 
-[BSP build complete]
+make clean 
+[BSP clean complete]
 
 **** Build Finished ****

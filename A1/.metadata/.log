@@ -3184,3 +3184,212 @@ Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.
 
 !ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 13:57:10.364
 !MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --accept-bad-sysid --sidp=0x10110b0 //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/a1projectagain/a1projectagain.elf]
+!SESSION 2017-08-29 15:32:51.082 -----------------------------------------------
+eclipse.buildId=M20120208-0800
+java.version=1.6.0_23
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_NZ
+Framework arguments:  -product org.eclipse.epp.package.cpp.product -perspective com.altera.sbtgui.ui.cPerspective
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.cpp.product -perspective com.altera.sbtgui.ui.cPerspective
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:33:16.672
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=' --instance=-1 --stop --accept-bad-sysid --sidp=0x10110b0]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:33:18.392
+!MESSAGE Failed Executing: [nios2-download, '--cable=', --instance=-1, --stop, --accept-bad-sysid, --sidp=0x10110b0] return code: 16
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:33:18.472
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=' --instance=-1 --go --accept-bad-sysid --sidp=0x10110b0 //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/A1PROJECT/A1PROJECT.elf]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:33:20.222
+!MESSAGE Failed Executing: [nios2-download, '--cable=', --instance=-1, --go, --accept-bad-sysid, --sidp=0x10110b0, //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/A1PROJECT/A1PROJECT.elf] return code: 16
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:33:20.242
+!MESSAGE Downloading ELF Process failed
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:33:31.022
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=' --instance=-1 --stop --accept-bad-sysid --sidp=0x10110b0]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:33:32.402
+!MESSAGE Failed Executing: [nios2-download, '--cable=', --instance=-1, --stop, --accept-bad-sysid, --sidp=0x10110b0] return code: 16
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:33:32.492
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=' --instance=-1 --go --accept-bad-sysid --sidp=0x10110b0 //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/A1PROJECT/A1PROJECT.elf]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:33:34.102
+!MESSAGE Failed Executing: [nios2-download, '--cable=', --instance=-1, --go, --accept-bad-sysid, --sidp=0x10110b0, //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/A1PROJECT/A1PROJECT.elf] return code: 16
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:33:34.122
+!MESSAGE Downloading ELF Process failed
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:33:45.362
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=' --instance=-1 --stop --accept-bad-sysid --sidp=0x10110b0]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:33:46.742
+!MESSAGE Failed Executing: [nios2-download, '--cable=', --instance=-1, --stop, --accept-bad-sysid, --sidp=0x10110b0] return code: 16
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:33:46.832
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=' --instance=-1 --go --accept-bad-sysid --sidp=0x10110b0 //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/A1PROJECT/A1PROJECT.elf]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:33:48.512
+!MESSAGE Failed Executing: [nios2-download, '--cable=', --instance=-1, --go, --accept-bad-sysid, --sidp=0x10110b0, //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/A1PROJECT/A1PROJECT.elf] return code: 16
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:33:48.532
+!MESSAGE Downloading ELF Process failed
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:33:58.242
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=' --instance=-1 --stop --accept-bad-sysid --sidp=0x10110b0]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:33:59.602
+!MESSAGE Failed Executing: [nios2-download, '--cable=', --instance=-1, --stop, --accept-bad-sysid, --sidp=0x10110b0] return code: 16
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:33:59.692
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=' --instance=-1 --go --accept-bad-sysid --sidp=0x10110b0 //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/A1PROJECT/A1PROJECT.elf]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:34:01.362
+!MESSAGE Failed Executing: [nios2-download, '--cable=', --instance=-1, --go, --accept-bad-sysid, --sidp=0x10110b0, //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/A1PROJECT/A1PROJECT.elf] return code: 16
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:34:01.382
+!MESSAGE Downloading ELF Process failed
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:34:12.782
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=' --instance=-1 --stop --accept-bad-sysid --sidp=0x10110b0]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:34:14.192
+!MESSAGE Failed Executing: [nios2-download, '--cable=', --instance=-1, --stop, --accept-bad-sysid, --sidp=0x10110b0] return code: 16
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:34:14.272
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=' --instance=-1 --go --accept-bad-sysid --sidp=0x10110b0 //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/A1PROJECT/A1PROJECT.elf]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:34:15.912
+!MESSAGE Failed Executing: [nios2-download, '--cable=', --instance=-1, --go, --accept-bad-sysid, --sidp=0x10110b0, //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/A1PROJECT/A1PROJECT.elf] return code: 16
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:34:15.932
+!MESSAGE Downloading ELF Process failed
+!SESSION 2017-08-29 15:34:26.690 -----------------------------------------------
+eclipse.buildId=M20120208-0800
+java.version=1.6.0_23
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_NZ
+Framework arguments:  -product org.eclipse.epp.package.cpp.product -perspective com.altera.sbtgui.ui.cPerspective
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.cpp.product -perspective com.altera.sbtgui.ui.cPerspective
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:34:40.610
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=' --instance=-1 --stop --accept-bad-sysid --sidp=0x10110b0]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:34:41.970
+!MESSAGE Failed Executing: [nios2-download, '--cable=', --instance=-1, --stop, --accept-bad-sysid, --sidp=0x10110b0] return code: 16
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:34:42.060
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=' --instance=-1 --go --accept-bad-sysid --sidp=0x10110b0 //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/A1PROJECT/A1PROJECT.elf]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:34:43.690
+!MESSAGE Failed Executing: [nios2-download, '--cable=', --instance=-1, --go, --accept-bad-sysid, --sidp=0x10110b0, //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/A1PROJECT/A1PROJECT.elf] return code: 16
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:34:43.710
+!MESSAGE Downloading ELF Process failed
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:35:00.260
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=' --instance=-1 --stop --accept-bad-sysid --sidp=0x10110b0]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:35:01.610
+!MESSAGE Failed Executing: [nios2-download, '--cable=', --instance=-1, --stop, --accept-bad-sysid, --sidp=0x10110b0] return code: 16
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:35:01.700
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=' --instance=-1 --go --accept-bad-sysid --sidp=0x10110b0 //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/A1PROJECT/A1PROJECT.elf]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:35:03.350
+!MESSAGE Failed Executing: [nios2-download, '--cable=', --instance=-1, --go, --accept-bad-sysid, --sidp=0x10110b0, //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/A1PROJECT/A1PROJECT.elf] return code: 16
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:35:03.370
+!MESSAGE Downloading ELF Process failed
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:36:14.230
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=' --instance=-1 --stop --accept-bad-sysid --sidp=0x10110b0]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:36:15.610
+!MESSAGE Failed Executing: [nios2-download, '--cable=', --instance=-1, --stop, --accept-bad-sysid, --sidp=0x10110b0] return code: 16
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:36:15.690
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=' --instance=-1 --go --accept-bad-sysid --sidp=0x10110b0 //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/A1PROJECT/A1PROJECT.elf]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:36:17.320
+!MESSAGE Failed Executing: [nios2-download, '--cable=', --instance=-1, --go, --accept-bad-sysid, --sidp=0x10110b0, //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/A1PROJECT/A1PROJECT.elf] return code: 16
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:36:17.330
+!MESSAGE Downloading ELF Process failed
+
+!ENTRY org.eclipse.cdt.debug.core 4 103 2017-08-29 15:37:00.200
+!MESSAGE Project A1PROJECT is closed
+
+!ENTRY org.eclipse.cdt.core 1 0 2017-08-29 15:38:11.950
+!MESSAGE Indexed 'alproject_final_bsp' (88 sources, 100 headers) in 2.04 sec: 2,114 declarations; 4,090 references; 96 unresolved inclusions; 6 syntax errors; 195 unresolved names (3.05%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2017-08-29 15:38:13.890
+!MESSAGE Indexed 'alproject_final' (1 sources, 13 headers) in 0.04 sec: 1 declarations; 1 references; 14 unresolved inclusions; 0 syntax errors; 0 unresolved names (0.00%)
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:40:02.480
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --accept-bad-sysid --sidp=0x10110b0]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:40:05.162
+!MESSAGE Failed Executing: [nios2-download, '--cable=USB-Blaster on localhost [USB-0]', --device=1, --instance=0, --stop, --accept-bad-sysid, --sidp=0x10110b0] return code: 4, 'other error'
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:40:05.222
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --accept-bad-sysid --sidp=0x10110b0 //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/alproject_final/alproject_final.elf]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:40:08.214
+!MESSAGE Failed Executing: [nios2-download, '--cable=USB-Blaster on localhost [USB-0]', --device=1, --instance=0, --go, --accept-bad-sysid, --sidp=0x10110b0, //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/alproject_final/alproject_final.elf] return code: 4, 'other error'
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:40:08.224
+!MESSAGE Downloading ELF Process failed
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:40:18.004
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --accept-bad-sysid --sidp=0x10110b0]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:40:20.658
+!MESSAGE Failed Executing: [nios2-download, '--cable=USB-Blaster on localhost [USB-0]', --device=1, --instance=0, --stop, --accept-bad-sysid, --sidp=0x10110b0] return code: 4, 'other error'
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:40:20.748
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --accept-bad-sysid --sidp=0x10110b0 //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/alproject_final/alproject_final.elf]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:40:23.800
+!MESSAGE Failed Executing: [nios2-download, '--cable=USB-Blaster on localhost [USB-0]', --device=1, --instance=0, --go, --accept-bad-sysid, --sidp=0x10110b0, //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/alproject_final/alproject_final.elf] return code: 4, 'other error'
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:40:23.820
+!MESSAGE Downloading ELF Process failed
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:40:35.040
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --accept-bad-sysid --sidp=0x10110b0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:40:36.760
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --accept-bad-sysid --sidp=0x10110b0 //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/alproject_final/alproject_final.elf]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:40:40.812
+!MESSAGE Failed Executing: [nios2-download, '--cable=USB-Blaster on localhost [USB-0]', --device=1, --instance=0, --go, --accept-bad-sysid, --sidp=0x10110b0, //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/alproject_final/alproject_final.elf] return code: 4, 'other error'
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-08-29 15:40:40.832
+!MESSAGE Downloading ELF Process failed
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:40:50.222
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --accept-bad-sysid --sidp=0x10110b0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:40:51.942
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --accept-bad-sysid --sidp=0x10110b0 //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/alproject_final/alproject_final.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:47:49.614
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:47:50.374
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --accept-bad-sysid --sidp=0x10110b0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:47:52.104
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --accept-bad-sysid --sidp=0x10110b0 //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/alproject_final/alproject_final.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:51:07.426
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:51:08.186
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --accept-bad-sysid --sidp=0x10110b0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-08-29 15:51:09.876
+!MESSAGE Executing: [C:/altera/13.0/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --accept-bad-sysid --sidp=0x10110b0 //uoa.auckland.ac.nz/engdfs/Home/myep112/Downloads/303Assignments/software/alproject_final/alproject_final.elf]

@@ -1,12 +1,9 @@
 
-**** Build of configuration Nios II for project a1projectagain ****
+**** Clean-only build of configuration Nios II for project a1projectagain ****
 
-make all 
+make clean 
 /usr/bin/sh: line 0: cd: ../a1projectagain_bsp/: No such file or directory
 /usr/bin/sh: line 0: cd: ../../: No such file or directory
-Info: Building ../a1projectagain_bsp/
-make --no-print-directory -C ../a1projectagain_bsp/
-[BSP build complete]
-[a1projectagain build complete]
+[a1projectagain clean complete]
 
 **** Build Finished ****

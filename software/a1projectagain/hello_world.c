@@ -1,5 +1,5 @@
 /* Traffic Light Controller */
-/* 
+/*
 Authors: Savi Mohan and Mark Yep
 */
 #include <system.h>
@@ -26,15 +26,11 @@ int config_tlc(int *tl_state);
 void camera_tlc(int* state);
 
 // Button Inputs / Interrupts -----------------
-void buttons_driver(unsigned int* button);
-void handle_mode_button(unsigned int* buttonState);
-void handle_vehicle_button(void);
 void init_buttons_pio(void);
 void NSEW_ped_isr(void* context, alt_u32 id);
 
 // Configuration Functions --------------------
 int update_timeout(void);
-void config_isr(void* context, alt_u32 id);
 void buffer_timeout(int value);
 void timeout_data_handler(void);
 
@@ -60,7 +56,6 @@ static alt_alarm camera_timer;	// alarm used for camera timing
 // NOTE: --------------------------------------
 // set contexts for ISRs to be volatile to avoid unwanted Compiler optimisation
 static volatile int tlc_timer_event = 0;
-static volatile int camera_timer_event = 0;
 static volatile int pedestrianNS = 0;
 static volatile int pedestrianEW = 0;
 static volatile int newTimeoutValues = 0;
@@ -75,7 +70,6 @@ static int vehicle_detected = 0;
 
 // Traffic light timeouts ---------------------
 static unsigned int timeout[TIMEOUT_NUM] = {500, 6000, 2000, 500, 6000, 2000};
-static TimeBuf timeout_buf = { -1, {500, 6000, 2000, 500, 6000, 2000} };
 
 // UART ---------------------------------------
 FILE* fp;
@@ -85,6 +79,7 @@ char chararray[5] = {'0', '0', '0', '0', '\0'};
 static volatile int valueCount = 0;
 static unsigned int tempBuffer[TIMEOUT_NUM] = {500, 6000, 2000, 500, 6000, 2000};
 
+// MISC ---------------------------------------
 static unsigned int mode = 0;
 static int proc_state[OPERATION_MODES + 1] = {-1, -1, -1, -1}; // Process states: use -1 as initialisation state
 static int camera_count = 1;
@@ -94,6 +89,7 @@ static int snapshotTaken = 0;
 static char* timeTaken = 0;
 static int toPrint = 0;
 static char countString[10];
+
 // Code =======================================
 // Initialise the traffic light controller for all modes
 void init_tlc() {
