@@ -1,5 +1,7 @@
 /* Traffic Light Controller */
-
+/* 
+Authors: Savi Mohan and Mark Yep
+*/
 #include <system.h>
 #include <sys/alt_alarm.h>
 #include <sys/alt_irq.h>
@@ -96,7 +98,7 @@ static char countString[10];
 // Initialise the traffic light controller for all modes
 void init_tlc() {
 	void* timerContext = (void*) mode;
-	alt_alarm_start(&tlc_timer, timeout[0], tlc_timer_isr, timerContext);
+	alt_alarm_start(&tlc_timer, timeout[0], tlc_timer_isr, timerContext);//start the timer
 }
 
 /* DESCRIPTION: Simple traffic light controller
@@ -111,10 +113,10 @@ void simple_tlc(int* state) {
 		return;
 	}
 
-	if (tlc_timer_event == 1) {
+	if (tlc_timer_event == 1) {//carry out a state transition when a timeout occurs
 		if (*state == 0) { // R, R state
 			*state = 1; // G, R
-			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x0C);
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x0C);//turn on the appropriate LEDs
 		} else if (*state == 1) {
 			*state = 2; // Y, R
 			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x14);
@@ -149,12 +151,12 @@ alt_u32 tlc_timer_isr(void* context) {
 	} else {
 		currentState = 0;
 	}
-	int	nextTimeout = timeout[currentState];
+	int	nextTimeout = timeout[currentState]; //determine the next timeout value based on the current state
 	printf("next timeout: %d\n", nextTimeout);
 	printf("current state: %d\n", currentState);
 	tlc_timer_event = 1;
 	timerHit = 1;
-	return nextTimeout;
+	return nextTimeout;	//returns the time until the next timer interrupt
 }
 
 /* DESCRIPTION: Handles the NSEW pedestrian button interrupt
@@ -167,10 +169,10 @@ void NSEW_ped_isr(void* context, alt_u32 id) {
 	(*temp) = IORD_ALTERA_AVALON_PIO_EDGE_CAP(BUTTONS_BASE);
 	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTONS_BASE, 0); // clear the edge capture register
 	if ((*temp & 0x01) > 0) {
-		pedestrianNS = 1;
+		pedestrianNS = 1;	//NS pedestrian button is pressed
 	}
 	if ((*temp & 0x02) > 0) {
-		pedestrianEW = 1;
+		pedestrianEW = 1;	//EW pedestrian button is pressed
 	}
 	if ((*temp & 0x04) > 0) {
 		if (vehicle_detected == 0) {
@@ -260,8 +262,8 @@ void configurable_tlc(int* state) {
 		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);
 		return;
 	}
-	newTimeoutValues = IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE);
-	if (((*state == 0) || (*state == 3)) && (newTimeoutValues > 3) && (timerHit == 1)){
+	newTimeoutValues = IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE);	//check if the new values button is on
+	if (((*state == 0) || (*state == 3)) && (newTimeoutValues > 3) && (timerHit == 1)){//if the current state is Red,Red and the new values button is on, and the timeout values haven't already been modified in this current state, then read new values from UART
 		printToUART("Enter values now\n\r");
 		timeout_data_handler();
 		newTimeoutValues = 0;
@@ -305,23 +307,23 @@ void timeout_data_handler(void) {
 	if (fp != NULL) {// check if the UART is open successfully
 		int k = 0;
 		while(1) {
-			c = fgetc(fp);
-			if (c== '\n') {
+			c = fgetc(fp);//read one char at a time
+			if (c== '\n') {	//keep reading chars until the new line char is reached
 				break;
 			}
 			if (c == '\r') {
 				break;
 			}
-			if (c == ',') {
+			if (c == ',') {//a comma indicates that a full number has been read in
 				int a;
-				for(a=0;a<(4-k);a++){
+				for(a=0;a<(4-k);a++){//if the entered number is not 4 digits, shift the char array to compensate
 					chararray[3]=chararray[2];
 					chararray[2]=chararray[1];
 					chararray[1]=chararray[0];
 					chararray[0] = '0';
 				}
 				sscanf(chararray, "%d", &timeoutValue);
-				tempBuffer[valueCount] = timeoutValue;
+				tempBuffer[valueCount] = timeoutValue;// store the newly read number into a temporary buffer
 				chararray[0] = '0';
 				chararray[1] = '0';
 				chararray[2] = '0';
@@ -337,7 +339,7 @@ void timeout_data_handler(void) {
 		fclose(fp); // remember to close the file
 	}
 
-	if (valueCount == 5) {
+	if (valueCount == 5) {//check that a valid number of input numbers has been received
 		int j;
 		for (j=0; j<6; j++) {
 			if (tempBuffer[j] <= 0) {
@@ -346,7 +348,7 @@ void timeout_data_handler(void) {
 			}
 		}
 		for (j=0; j<6; j++) {
-			timeout[j]=tempBuffer[j];
+			timeout[j]=tempBuffer[j];//load the value in the buffer into the timeout array
 		}
 		timerHit = 0;
 	}
