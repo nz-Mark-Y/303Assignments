@@ -1,7 +1,12 @@
-/* Traffic Light Controller */
-/*
+/* 
+Traffic Light Controller
+CS301 Assignment 1
+
 Authors: Savi Mohan and Mark Yep
+Last Modified: 30/08/2017
+Organisation: University of Auckland, Department of Electrical and Computer Engineering
 */
+
 #include <system.h>
 #include <sys/alt_alarm.h>
 #include <sys/alt_irq.h>
@@ -22,7 +27,6 @@ void init_tlc();
 void simple_tlc(int* state);
 void pedestrian_tlc(int* state);
 void configurable_tlc(int* state);
-int config_tlc(int *tl_state);
 void camera_tlc(int* state);
 
 // Button Inputs / Interrupts -----------------
@@ -30,10 +34,9 @@ void init_buttons_pio(void);
 void NSEW_ped_isr(void* context, alt_u32 id);
 
 // Configuration Functions --------------------
-int update_timeout(void);
-void buffer_timeout(int value);
 void timeout_data_handler(void);
 
+// Print to UART Function ---------------------
 void printToUART(char* stringToPrint);
 
 // CONSTANTS ==================================
@@ -81,7 +84,7 @@ static unsigned int tempBuffer[TIMEOUT_NUM] = {500, 6000, 2000, 500, 6000, 2000}
 
 // MISC ---------------------------------------
 static unsigned int mode = 0;
-static int proc_state[OPERATION_MODES + 1] = {-1, -1, -1, -1}; // Process states: use -1 as initialisation state
+static int proc_state[OPERATION_MODES + 1] = {-1, -1, -1, -1}; 								// Process states: use -1 as initialisation state
 static int camera_count = 1;
 static int buttonValue = 1;
 
@@ -91,10 +94,14 @@ static int toPrint = 0;
 static char countString[10];
 
 // Code =======================================
-// Initialise the traffic light controller for all modes
+
+/* DESCRIPTION: Initialise the traffic light controller for all modes
+ * PARAMETER:   none
+ * RETURNS:     none
+ */
 void init_tlc() {
 	void* timerContext = (void*) mode;
-	alt_alarm_start(&tlc_timer, timeout[0], tlc_timer_isr, timerContext);//start the timer
+	alt_alarm_start(&tlc_timer, timeout[0], tlc_timer_isr, timerContext); 					// Start the timer
 }
 
 /* DESCRIPTION: Simple traffic light controller
@@ -105,14 +112,14 @@ void simple_tlc(int* state) {
 	if (*state == -1) {
 		init_tlc();
 		(*state)++;
-		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);	// both traffic lights will be red by default
+		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);									// Both traffic lights will be red by default
 		return;
 	}
 
-	if (tlc_timer_event == 1) {//carry out a state transition when a timeout occurs
+	if (tlc_timer_event == 1) { 															// Carry out a state transition when a timeout occurs
 		if (*state == 0) { // R, R state
 			*state = 1; // G, R
-			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x0C);//turn on the appropriate LEDs
+			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x0C); 							// Turn on the appropriate LEDs
 		} else if (*state == 1) {
 			*state = 2; // Y, R
 			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x14);
@@ -147,12 +154,11 @@ alt_u32 tlc_timer_isr(void* context) {
 	} else {
 		currentState = 0;
 	}
-	int	nextTimeout = timeout[currentState]; //determine the next timeout value based on the current state
+	int	nextTimeout = timeout[currentState]; 											 	// Determine the next timeout value based on the current state
 	printf("next timeout: %d\n", nextTimeout);
-	printf("current state: %d\n", currentState);
 	tlc_timer_event = 1;
 	timerHit = 1;
-	return nextTimeout;	//returns the time until the next timer interrupt
+	return nextTimeout;																		// Returns the time until the next timer interrupt
 }
 
 /* DESCRIPTION: Handles the NSEW pedestrian button interrupt
@@ -163,23 +169,20 @@ alt_u32 tlc_timer_isr(void* context) {
 void NSEW_ped_isr(void* context, alt_u32 id) {
 	int* temp = (int*) context;
 	(*temp) = IORD_ALTERA_AVALON_PIO_EDGE_CAP(BUTTONS_BASE);
-	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTONS_BASE, 0); // clear the edge capture register
+	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTONS_BASE, 0);										// Clear the edge capture register
 	if ((*temp & 0x01) > 0) {
-		pedestrianNS = 1;	//NS pedestrian button is pressed
+		pedestrianNS = 1;																	// NS pedestrian button is pressed
 	}
 	if ((*temp & 0x02) > 0) {
-		pedestrianEW = 1;	//EW pedestrian button is pressed
+		pedestrianEW = 1;																	// EW pedestrian button is pressed
 	}
 	if ((*temp & 0x04) > 0) {
 		if (vehicle_detected == 0) {
-			printf("Vehicle Enters\n");
-			vehicle_detected = 1; // If vehicle absent, button press means vehicle has entered intersection
+			vehicle_detected = 1; 															// If vehicle absent, button press means vehicle has entered intersection
 		} else {
-			printf("Vehicle Leaves\n");
-			vehicle_detected = 0; // If at any other time, button press means vehicle has left intersection
+			vehicle_detected = 0; 															// If at any other time, button press means vehicle has left intersection
 		}
 	}
-	printf("button: %i\n", *temp);
 }
 
 /* DESCRIPTION: Initialise the interrupts for pedestrian buttons
@@ -187,10 +190,10 @@ void NSEW_ped_isr(void* context, alt_u32 id) {
  * RETURNS:     none
  */
 void init_buttons_pio(void) {
-	void* context_going_to_be_passed = (void*) &buttonValue; 								// cast before passing to ISR
-	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTONS_BASE, 0); 										// clears the edge capture register
-	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(BUTTONS_BASE, 0x7); 									// enable interrupts for all buttons
-	alt_irq_register(BUTTONS_IRQ,context_going_to_be_passed, NSEW_ped_isr); 				// register the ISR
+	void* context_going_to_be_passed = (void*) &buttonValue; 								// Cast before passing to ISR
+	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTONS_BASE, 0); 										// Clears the edge capture register
+	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(BUTTONS_BASE, 0x7); 									// Enable interrupts for all buttons
+	alt_irq_register(BUTTONS_IRQ,context_going_to_be_passed, NSEW_ped_isr); 				// Register the ISR
 }
 
 
@@ -234,7 +237,7 @@ void pedestrian_tlc(int* state) {
 		} else if (*state == 4) {
 			*state = 5; // R, Y
 			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x22);
-		} else {	// this accounts for state 5
+		} else {																			// State 5
 			*state = 0; // R, R
 			IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);
 		}
@@ -258,8 +261,8 @@ void configurable_tlc(int* state) {
 		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x24);
 		return;
 	}
-	newTimeoutValues = IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE);	//check if the new values button is on
-	if (((*state == 0) || (*state == 3)) && (newTimeoutValues > 3) && (timerHit == 1)){//if the current state is Red,Red and the new values button is on, and the timeout values haven't already been modified in this current state, then read new values from UART
+	newTimeoutValues = IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE);							// Check if the new values button is on
+	if (((*state == 0) || (*state == 3)) && (newTimeoutValues > 3) && (timerHit == 1)) {	// If the current state is R,R  and the new values switch is on, and the timeout values haven't already been modified in this current state, then read new values from UART
 		printToUART("Enter values now\n\r");
 		timeout_data_handler();
 		newTimeoutValues = 0;
@@ -269,62 +272,36 @@ void configurable_tlc(int* state) {
 	}
 }
 
-/* DESCRIPTION: Implements the state machine of the traffic light controller in
- *              the ***configuration*** phase
- * PARAMETER:   tl_state - state of the traffic light
- * RETURNS:     Returns the state of the configuration phase
- */
-/*
-Puts the TLC in a 'safe' state... then begins update
-*/
-int config_tlc(int* tl_state) {
-	// State of configuration
-	static int state = 0;
-
-	if (*tl_state == -1) {
-		// Process initialisation state
-		state = 0;
-		return 0;
-	}
-
-	return state;
-}
-
-
 /* DESCRIPTION: Parses the configuration string and updates the timeouts
  * PARAMETER:   none
  * RETURNS:     none
  */
-/*
- buffer_timeout() must be used 'for atomic transfer to the main timeout buffer'
-*/
 void timeout_data_handler(void) {
-	fp = fopen(UART_NAME, "rw"); // open up UART with read and write access
-	if (fp != NULL) {// check if the UART is open successfully
+	fp = fopen(UART_NAME, "rw"); 															// Open up UART with read and write access
+	if (fp != NULL) {																		// Check if the UART is open successfully
 		int k = 0;
 		while(1) {
 			newTimeoutValues = IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE);
-			if(newTimeoutValues < 4){
+			if (newTimeoutValues < 4) {
 				return;
 			}
-
-			c = fgetc(fp);//read one char at a time
-			if (c== '\n') {	//keep reading chars until the new line char is reached
+			c = fgetc(fp);																	// Read one char at a time
+			if (c == '\n') {																// Keep reading chars until the new line char is reached
 				break;
 			}
 			if (c == '\r') {
 				break;
 			}
-			if (c == ',') {//a comma indicates that a full number has been read in
+			if (c == ',') {																	// A comma indicates that a full number has been read in
 				int a;
-				for(a=0;a<(4-k);a++){//if the entered number is not 4 digits, shift the char array to compensate
-					chararray[3]=chararray[2];
-					chararray[2]=chararray[1];
-					chararray[1]=chararray[0];
+				for (a=0; a<(4-k); a++ ){													// If the entered number is not 4 digits, shift the char array to compensate
+					chararray[3] = chararray[2];
+					chararray[2] = chararray[1];
+					chararray[1] = chararray[0];
 					chararray[0] = '0';
 				}
 				sscanf(chararray, "%d", &timeoutValue);
-				tempBuffer[valueCount] = timeoutValue;// store the newly read number into a temporary buffer
+				tempBuffer[valueCount] = timeoutValue;										// Store the newly read number into a temporary buffer
 				chararray[0] = '0';
 				chararray[1] = '0';
 				chararray[2] = '0';
@@ -337,10 +314,10 @@ void timeout_data_handler(void) {
 				k += 1;
 			}
 		}
-		fclose(fp); // remember to close the file
+		fclose(fp); 																		// Remember to close the file
 	}
 
-	if (valueCount == 5) {//check that a valid number of input numbers has been received
+	if (valueCount == 5) {																	// Check that a valid number of input numbers has been received
 		int j;
 		for (j=0; j<6; j++) {
 			if (tempBuffer[j] <= 0) {
@@ -349,7 +326,7 @@ void timeout_data_handler(void) {
 			}
 		}
 		for (j=0; j<6; j++) {
-			timeout[j]=tempBuffer[j];//load the value in the buffer into the timeout array
+			timeout[j]=tempBuffer[j];														// Load the value in the buffer into the timeout array
 		}
 		timerHit = 0;
 	}else {
@@ -357,28 +334,6 @@ void timeout_data_handler(void) {
 
 	}
 	valueCount = 0;
-}
-
-
-/* DESCRIPTION: Stores the new timeout values in a secondary buffer for atomic
- *              transfer to the main timeout buffer at a later stage
- * PARAMETER:   value - value to store in the buffer
- * RETURNS:     none
- */
-void buffer_timeout(int value) {
-
-}
-
-
-/* DESCRIPTION: Implements the update operation of timeout values as a critical
- *              section by ensuring that timeouts are fully received before
- *              allowing the update
- * PARAMETER:   none
- * RETURNS:     1 if update is completed; 0 otherwise
- */
-int update_timeout(void) {
-
-	return 0;
 }
 
 /* DESCRIPTION: Handles the red light camera timer interrupt
@@ -389,15 +344,14 @@ int update_timeout(void) {
 alt_u32 camera_timer_isr(void* context) {
 	volatile int* trigger = (volatile int*)context;
 	(*trigger)++;
-	if (*trigger == CAMERA_TIMEOUT) {// if trigger value is equal to CAMERA_TIMEOUT then the traffic camera takes a snapshot
+	if (*trigger == CAMERA_TIMEOUT) {														// If trigger value is equal to CAMERA_TIMEOUT then the traffic camera takes a snapshot
 		snapshotTaken = 1;
 		toPrint = 1;
 		return 0;
 	}
-	if (vehicle_detected != 2) {//vehicle leaves the intersection before CAMERA_TIMEOUT time value is reached
+	if (vehicle_detected != 2) {															// Vehicle leaves the intersection before CAMERA_TIMEOUT time value is reached
 		int num = *trigger;
 		sprintf(countString, "%d", num);
-		printf(countString);
 		snapshotTaken = 0;
 		toPrint = 1;
 		return 0;
@@ -427,7 +381,7 @@ void camera_tlc(int* state) {
 			printToUART("Snapshot Taken\n\r");
 			toPrint = 0;
 		} else {
-			printToUART("Time taken: ");//prints time taken to enter and leave the intersection
+			printToUART("Time taken: ");													// Prints time taken to enter and leave the intersection
 			printToUART(countString);
 			printToUART("\n\r");
 			timeTaken = 0;
@@ -445,7 +399,7 @@ void camera_tlc(int* state) {
 		pedestrian_tlc(state);
 	}
 
-	if (((*state == 2) || (*state == 5)) && (vehicle_detected == 1)) { // if vehicle enters while light is yellow, start the timer
+	if (((*state == 2) || (*state == 5)) && (vehicle_detected == 1)) { 						// If vehicle enters while light is yellow, start the timer
 		printToUART("Camera Activated\n\r");
 		camera_count = 0;
 		vehicle_detected = 2;
@@ -454,6 +408,10 @@ void camera_tlc(int* state) {
 	}
 }
 
+/* DESCRIPTION: Prints a string to PuTTY via UART
+ * PARAMETER:   stringToPrint - the string to pritn
+ * RETURNS:     none
+ */
 void printToUART(char* stringToPrint) {
 	fp = fopen(UART_NAME, "w");
 	if (fp != NULL) {
@@ -462,38 +420,39 @@ void printToUART(char* stringToPrint) {
 	}
 }
 
+// Main =======================================
 int main(void) {
 	FILE *lcd;
 	lcd = fopen(LCD_NAME, "w");
 
-	printf("Hello\n");
+	printf("Hello, Welcome to CS303 Traffic Light Controller\n");
 
-	init_buttons_pio();			// initialise buttons
+	init_buttons_pio();																										// Initialise buttons
 
 	while (1) {
-		if ((proc_state[mode] == -1) || (proc_state[mode] == 0) || (proc_state[mode] == 3)) {//we can only change modes when state is Red,Red (or state = -1)
-			if ((IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 0) || (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 4)) {//mode 0
+		if ((proc_state[mode] == -1) || (proc_state[mode] == 0) || (proc_state[mode] == 3)) { 								// We can only change modes when state is Red,Red (or state = -1)
+			if ((IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 0) || (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 4)) { 	// Mode 0
 				if (mode != 0) {
 					mode = 0;
-					alt_alarm_stop(&tlc_timer);//stop current timer when mode changes
+					alt_alarm_stop(&tlc_timer);																				// Stop current timer when mode changes
 					proc_state[0] = -1;
 				}
 			}
-			if ((IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 1) || (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 5)) {//mode 1
+			if ((IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 1) || (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 5)) {	// Mode 1
 				if (mode != 1) {
 					mode = 1;
 					alt_alarm_stop(&tlc_timer);
 					proc_state[1] = -1;
 				}
 			}
-			if ((IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 2) || (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 6)) {//mode 2
+			if ((IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 2) || (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 6)) {	// Mode 2
 				if (mode != 2) {
 					mode = 2;
 					alt_alarm_stop(&tlc_timer);
 					proc_state[2] = -1;
 				}
 			}
-			if ((IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 3) || (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 7)) {//mode 3
+			if ((IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 3) || (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 7)) {	// Mode 3
 				if (mode != 3) {
 					mode = 3;
 					alt_alarm_stop(&tlc_timer);
@@ -502,7 +461,7 @@ int main(void) {
 			}
 		}
 
-    	if(lcd != NULL) {//display strings on LCD
+    	if (lcd != NULL) {																									// Display strings on LCD
     		#define ESC 27
     		#define CLEAR_LCD_STRING "[2J"
     		fprintf(lcd, "%c%s", ESC, CLEAR_LCD_STRING);
@@ -511,7 +470,7 @@ int main(void) {
     	}
 
 		// Execute the correct TLC
-    	switch (mode) {//exceute the appropriate tlc depending on the current mode
+    	switch (mode) {																										// Exceute the appropriate tlc depending on the current mode
 			case 0:
 				simple_tlc(&proc_state[0]);
 				break;
