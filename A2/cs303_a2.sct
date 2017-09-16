@@ -8,6 +8,8 @@ output signal VPace, APace;
       signal LRI_start, LRI_ex, LRI_stop;
       signal VRP_start, VRP_ex, VRP_stop;
       signal AVI_start, AVI_ex, AVI_stop;
+      signal PVARP_start, PVARP_ex, PVARP_stop;
+      signal AEI_start, AEI_ex, AEI_stop;
 
       region LRI:
       initial state init --> commit1 with VSense;
@@ -40,9 +42,10 @@ output signal VPace, APace;
       connector state commit1 --> waitAVI immediate with /AVI_start;
       state waitAVI "waitAVI" --> commit2 with VSense
       --> commit3 with AVI_ex;
-      connector state commit2 --> intState immediate with /AVI_stop;
-      connector state commit3 --> intState immediate with /VPace;
-      state intState --> commit4 with ASense;
+      connector state commit2 --> waitPVARP immediate with /AVI_stop;
+      connector state commit3 --> waitASense immediate with /VPace;
+      state waitPVARP --> waitASense with PVARP_ex; 
+      state waitASense --> commit4 with ASense;
       connector state commit4 --> waitAVI immediate with /AVI_start;
       
       region AVI_timer:
@@ -50,6 +53,37 @@ output signal VPace, APace;
       state timer "timer"--> idle with AVI_stop
       --> idle with AVITO/AVI_ex;
       
-      // PVARP
+      region PVARP_timer:
+      initial state idle --> timer with PVARP_start;
+      state timer "timer"--> idle with PVARPTO/PVARP_ex;
+      
+      region PVARP:
+      initial state idle --> commit1 with VSense;
+      connector state commit1 --> waitPVARP immediate with /PVARP_start;
+      state waitPVARP --> idle with PVARP_ex
+      --> waitPVARP with ASense;
+      
+      region AEI_timer:
+      initial state idle --> timer with AEI_start;
+      state timer "timer"--> idle with AEI_stop
+      --> idle with AEITO/ AEI_ex;
+      
+      region AEI:
+            
+      
+      
+      
+      initial state init --> commit1 with VSense
+      --> commit1 with VPace;
+      connector state commit1 --> waitPVARP immediate with /AEI_start;
+      state waitPVARP --> waitAEI with PVARP_ex;
+      state waitAEI "waitAEI" --> commit2 with ASense
+      --> commit3 with AEI_ex;
+      connector state commit2 --> intState immediate with /AEI_stop;
+      connector state commit3 --> intState immediate with /APace;
+      state intState "intState"--> commit4 with VSense 
+      --> commit4 with VPace;
+      connector state commit4 --> waitPVARP immediate with /AEI_start;
+      
     };
 }
