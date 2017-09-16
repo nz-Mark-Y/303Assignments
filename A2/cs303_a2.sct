@@ -1,0 +1,55 @@
+@HVLayout
+scchart compsys303_a2 {
+
+input signal VSense, ASense, AVITO, PVARPTO, LRITO, VRPTO, AEITO, URITO;
+output signal VPace, APace;
+
+    initial state top{
+      signal LRI_start, LRI_ex, LRI_stop;
+      signal VRP_start, VRP_ex, VRP_stop;
+      signal AVI_start, AVI_ex, AVI_stop;
+
+      region LRI:
+      initial state init --> commit1 with VSense;
+      connector state commit1 --> waitVRP immediate with /LRI_start;
+      state waitVRP --> waitLRI with VRP_ex;
+      state waitLRI "waitLRI" --> commit2 with VSense
+      --> commit3 with LRI_ex;
+      connector state commit2 --> intState immediate with /LRI_stop;
+      connector state commit3 --> intState immediate with /VPace;
+      state intState --> waitVRP with /LRI_start;
+
+      region LRI_timer:
+      initial state idle --> timer with LRI_start;
+      state timer "timer"--> idle with LRI_stop
+      --> idle with LRITO/ LRI_ex;
+
+      region VRP:
+      initial state idle --> commit1 with VSense
+      --> commit1 with VPace;
+      connector state commit1 --> waitVRP immediate with /VRP_start;
+      state waitVRP --> idle with VRP_ex
+      --> waitVRP with VSense;
+
+      region VRP_timer:
+      initial state idle --> timer with VRP_start;
+      state timer "timer"--> idle with VRPTO/VRP_ex;
+      
+      region AVI:
+      initial state init --> commit1 with ASense;
+      connector state commit1 --> waitAVI immediate with /AVI_start;
+      state waitAVI "waitAVI" --> commit2 with VSense
+      --> commit3 with AVI_ex;
+      connector state commit2 --> intState immediate with /AVI_stop;
+      connector state commit3 --> intState immediate with /VPace;
+      state intState --> commit4 with ASense;
+      connector state commit4 --> waitAVI immediate with /AVI_start;
+      
+      region AVI_timer:
+      initial state idle --> timer with AVI_start;
+      state timer "timer"--> idle with AVI_stop
+      --> idle with AVITO/AVI_ex;
+      
+      // PVARP
+    };
+}
