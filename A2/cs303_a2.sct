@@ -69,10 +69,6 @@ output signal VPace, APace;
       --> idle with AEITO/ AEI_ex;
       
       region AEI:
-            
-      
-      
-      
       initial state init --> commit1 with VSense
       --> commit1 with VPace;
       connector state commit1 --> waitPVARP immediate with /AEI_start;
