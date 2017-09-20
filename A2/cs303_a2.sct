@@ -42,7 +42,9 @@ output signal VPace, APace;
       
       region AVI:
       initial state init --> commit1 with ASense;
-      connector state commit1 --> waitAVI immediate with /AVI_start;
+      connector state commit1 --> waitAVI2 immediate with /AVI_start;
+      state waitAVI2 "waitAVI2" --> commit3 with AVI_ex;
+      
       state waitAVI "waitAVI" --> commit2 with VSense
       --> commit2 with VPace
       --> waitURI with AVI_ex;
