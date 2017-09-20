@@ -50,7 +50,6 @@ output signal VPace, APace;
       --> waitURI with AVI_ex;
       connector state commit2 --> waitPVARP immediate with /AVI_stop;
       state waitURI "waitURI" --> commit3 with URI_ex;
-       //--> commit2 with VSense; 
       connector state commit3 --> waitASense immediate with /VPace;
       state waitPVARP --> waitASense with PVARP_ex; 
       state waitASense --> commit4 with ASense;

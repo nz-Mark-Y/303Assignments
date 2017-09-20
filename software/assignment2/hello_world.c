@@ -31,7 +31,7 @@
 #define URI_VALUE 1800
 
 #define DEBOUNCE_VALUE 200
-#define SIGNAL_VALUE 10
+#define SIGNAL_VALUE 3
 //=============================================
 void mode0();
 void mode1();
