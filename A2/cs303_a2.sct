@@ -87,7 +87,6 @@ output signal VPace, APace;
       state intState "intState"--> commit4 with VSense 
       --> commit4 with VPace;
       connector state commit4 --> waitPVARP immediate with /AEI_start;
-     
       region URI_timer:
       initial state idle --> timer with URI_start;
       state timer "timer" --> idle with URI_stop
