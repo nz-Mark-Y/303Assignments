@@ -34,8 +34,7 @@ output signal VPace, APace;
       initial state idle --> commit1 with VSense
       --> commit1 with VPace;
       connector state commit1 --> waitVRP immediate with /VRP_start;
-      state waitVRP --> idle with VRP_ex
-      --> waitVRP with VSense;
+      state waitVRP --> idle with VRP_ex;
 
       region VRP_timer:
       initial state idle --> timer with VRP_start;
@@ -44,7 +43,9 @@ output signal VPace, APace;
       region AVI:
       initial state init --> waitAVI with ASense/AVI_start;
       state waitPVARP --> waitASense with PVARP_ex; 
-      state waitASense --> waitAVI with AVI_start/AVI_start;
+      state waitASense --> commit1 with ASense
+      --> commit1 with APace;
+      connector state commit1 --> waitAVI immediate with /AVI_start;
       state waitAVI "waitAVI" --> commit2 with VSense
       --> commit2 with VPace
       --> waitURI with AVI_ex;
@@ -65,8 +66,7 @@ output signal VPace, APace;
       initial state idle --> commit1 with VSense
       --> commit1 with VPace;
       connector state commit1 --> waitPVARP immediate with /PVARP_start;
-      state waitPVARP --> idle with PVARP_ex
-      --> waitPVARP with ASense;
+      state waitPVARP --> idle with PVARP_ex;
       
       region AEI_timer:
       initial state idle --> timer with AEI_start;
@@ -79,12 +79,14 @@ output signal VPace, APace;
       connector state commit1 --> waitPVARP immediate with /AEI_start;
       state waitPVARP --> waitAEI with PVARP_ex;
       state waitAEI "waitAEI" --> commit2 with ASense
+      --> commit2 with APace
       --> commit3 with AEI_ex;
       connector state commit2 --> intState immediate with /AEI_stop;
       connector state commit3 --> intState immediate with /APace;
       state intState "intState"--> commit4 with VSense 
       --> commit4 with VPace;
       connector state commit4 --> waitPVARP immediate with /AEI_start;
+      
       region URI_timer:
       initial state idle --> timer with URI_start;
       state timer "timer" --> idle with URI_stop
@@ -96,6 +98,7 @@ output signal VPace, APace;
       connector state commit1 --> waitURI immediate with /URI_start;
       state waitURI "waitURI" --> intState with URI_ex;
       state intState "intState"--> commit2 with VSense 
+      --> intState with /first_asense
       --> commit2 with VPace;
       connector state commit2 --> waitURI immediate with /URI_start;
       

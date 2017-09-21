@@ -142,7 +142,8 @@ ACDS_VERSION := 13.0
 ELF := assignment2.elf
 
 # Paths to C, C++, and assembly source files.
-C_SRCS := hello_world.c
+C_SRCS += hello_world.c
+C_SRCS += sccharts.c
 CXX_SRCS :=
 ASM_SRCS :=
 

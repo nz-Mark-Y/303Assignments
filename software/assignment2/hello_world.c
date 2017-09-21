@@ -31,7 +31,7 @@
 #define URI_VALUE 1800
 
 #define DEBOUNCE_VALUE 200
-#define SIGNAL_VALUE 3
+#define SIGNAL_VALUE 1
 //=============================================
 void mode0();
 void mode1();
@@ -46,7 +46,12 @@ void initialise_lri_timer();
 void initialise_uri_timer();
 void initialise_debounce_timer();
 void initialise_LED_timer();
-void initialise_signal_timer();
+void initialise_avi_signal_timer();
+void initialise_aei_signal_timer();
+void initialise_pvarp_signal_timer();
+void initialise_vrp_signal_timer();
+void initialise_lri_signal_timer();
+void initialise_uri_signal_timer();
 
 alt_u32 avi_isr_function();
 alt_u32 aei_isr_function();
@@ -56,7 +61,13 @@ alt_u32 lri_isr_function();
 alt_u32 uri_isr_function();
 alt_u32 debounce_isr_function();
 alt_u32 LED_isr_function();
-alt_u32 signal_isr_function();
+
+alt_u32 signal_avi_isr_function();
+alt_u32 signal_aei_isr_function();
+alt_u32 signal_pvarp_isr_function();
+alt_u32 signal_vrp_isr_function();
+alt_u32 signal_lri_isr_function();
+alt_u32 signal_uri_isr_function();
 //=============================================
 static alt_alarm avi_timer;																			// Timers
 static alt_alarm aei_timer;
@@ -66,7 +77,12 @@ static alt_alarm lri_timer;
 static alt_alarm uri_timer;
 static alt_alarm debounce_timer;
 static alt_alarm LED_timer;
-static alt_alarm signal_timer;
+static alt_alarm avi_signal_timer;
+static alt_alarm aei_signal_timer;
+static alt_alarm pvarp_signal_timer;
+static alt_alarm vrp_signal_timer;
+static alt_alarm lri_signal_timer;
+static alt_alarm uri_signal_timer;
 
 static int buttonValue = 1;																			// Flag to hold which button is pressed
 static volatile int vpace_LED_on = 0;																// Flag to hold if the VPace LED should be on or off
@@ -99,12 +115,8 @@ void mode0() {
 	 * Parameters: NONE
 	 * Returns: NONE
 	 */
-	if (AVITO != 0) {
-		printf("hello");
-	}
-
 	if (VPace == 1) {																			 	// VPace signal handler
-		printf("vpace set\n");
+		printf("** vpace set\n");
 		initialise_pvarp_timer();
 		initialise_vrp_timer();
 		initialise_aei_timer();
@@ -114,7 +126,7 @@ void mode0() {
 		initialise_LED_timer(&vpace_LED_on);
 	}
 	if (APace == 1) {																				// APace signal handler
-		printf("apace set\n");
+		printf("** apace set\n");
 		initialise_avi_timer();
 		apace_LED_on = 1;
 		initialise_LED_timer(&apace_LED_on);
@@ -266,7 +278,6 @@ void initialise_debounce_timer(int* context) {
 	 * Parameters: NONE
 	 * Returns: NONE
 	 */
-	printf("debounce timer start\n");
 	void* debounce_timer_context = (void*) context;
 	alt_alarm_start(&debounce_timer, DEBOUNCE_VALUE, debounce_isr_function, debounce_timer_context);
 }
@@ -278,23 +289,75 @@ void initialise_LED_timer(int* context) {
 	 * Parameters: NONE
 	 * Returns: NONE
 	 */
-	printf("led timer start\n");
 	void* LED_timer_context = (void*) context;
 	alt_alarm_start(&LED_timer, DEBOUNCE_VALUE, LED_isr_function, LED_timer_context);
 }
 
-void initialise_signal_timer(char* context) {
+void initialise_avi_signal_timer(char* context) {
 	/*
-	 * Initialises the timer for measuring the signal high period
+	 * Initialises the timer for measuring the avi signal high period
 	 *
 	 * Parameters: NONE
 	 * Returns: NONE
 	 */
-	printf("signal timer start\n");
 	void* signal_timer_context = (void*) context;
-	alt_alarm_start(&signal_timer, SIGNAL_VALUE, signal_isr_function, signal_timer_context);
+	alt_alarm_start(&avi_signal_timer, SIGNAL_VALUE, signal_avi_isr_function, signal_timer_context);
 }
 
+void initialise_aei_signal_timer(char* context) {
+	/*
+	 * Initialises the timer for measuring the aei signal high period
+	 *
+	 * Parameters: NONE
+	 * Returns: NONE
+	 */
+	void* signal_timer_context = (void*) context;
+	alt_alarm_start(&aei_signal_timer, SIGNAL_VALUE, signal_aei_isr_function, signal_timer_context);
+}
+
+void initialise_pvarp_signal_timer(char* context) {
+	/*
+	 * Initialises the timer for measuring the pvarp signal high period
+	 *
+	 * Parameters: NONE
+	 * Returns: NONE
+	 */
+	void* signal_timer_context = (void*) context;
+	alt_alarm_start(&pvarp_signal_timer, SIGNAL_VALUE, signal_pvarp_isr_function, signal_timer_context);
+}
+
+void initialise_vrp_signal_timer(char* context) {
+	/*
+	 * Initialises the timer for measuring the vrp signal high period
+	 *
+	 * Parameters: NONE
+	 * Returns: NONE
+	 */
+	void* signal_timer_context = (void*) context;
+	alt_alarm_start(&vrp_signal_timer, SIGNAL_VALUE, signal_vrp_isr_function, signal_timer_context);
+}
+
+void initialise_lri_signal_timer(char* context) {
+	/*
+	 * Initialises the timer for measuring the lri signal high period
+	 *
+	 * Parameters: NONE
+	 * Returns: NONE
+	 */
+	void* signal_timer_context = (void*) context;
+	alt_alarm_start(&lri_signal_timer, SIGNAL_VALUE, signal_lri_isr_function, signal_timer_context);
+}
+
+void initialise_uri_signal_timer(char* context) {
+	/*
+	 * Initialises the timer for measuring the uri signal high period
+	 *
+	 * Parameters: NONE
+	 * Returns: NONE
+	 */
+	void* signal_timer_context = (void*) context;
+	alt_alarm_start(&uri_signal_timer, SIGNAL_VALUE, signal_uri_isr_function, signal_timer_context);
+}
 
 alt_u32 avi_isr_function(void* context) {
 	/*
@@ -305,7 +368,7 @@ alt_u32 avi_isr_function(void* context) {
 	 */
 	printf("avi timer end\n");
 	AVITO = 1;
-	initialise_signal_timer(&AVITO);
+	initialise_avi_signal_timer(&AVITO);
 	return 0;
 }
 
@@ -318,7 +381,7 @@ alt_u32 aei_isr_function(void* context) {
 	 */
 	printf("aei timer end\n");
 	AEITO = 1;
-	initialise_signal_timer(&AEITO);
+	initialise_aei_signal_timer(&AEITO);
 	return 0;
 }
 
@@ -331,7 +394,7 @@ alt_u32 pvarp_isr_function(void* context) {
 	 */
 	printf("pvarp timer end\n");
 	PVARPTO = 1;
-	initialise_signal_timer(&PVARPTO);
+	initialise_pvarp_signal_timer(&PVARPTO);
 	return 0;
 }
 
@@ -344,7 +407,7 @@ alt_u32 vrp_isr_function(void* context) {
 	 */
 	printf("vrp timer end\n");
 	VRPTO = 1;
-	initialise_signal_timer(&VRPTO);
+	initialise_vrp_signal_timer(&VRPTO);
 	return 0;
 }
 
@@ -357,7 +420,7 @@ alt_u32 lri_isr_function(void* context) {
 	 */
 	printf("lri timer end\n");
 	LRITO = 1;
-	initialise_signal_timer(&LRITO);
+	initialise_lri_signal_timer(&LRITO);
 	return 0;
 }
 
@@ -370,7 +433,7 @@ alt_u32 uri_isr_function(void* context) {
 	 */
 	printf("uri timer end\n");
 	URITO = 1;
-	initialise_signal_timer(&URITO);
+	initialise_uri_signal_timer(&URITO);
 	return 0;
 }
 
@@ -382,7 +445,6 @@ alt_u32 debounce_isr_function(void* context) {
 	 * Parameters: context
 	 * Returns: alt_u32 representing the next timer value
 	 */
-	printf("debounce timer end\n");
 	int *temp = (int*) context;
 	*temp = 0;
 	return 0;
@@ -396,21 +458,79 @@ alt_u32 LED_isr_function(void* context) {
 	 * Parameters: context
 	 * Returns: alt_u32 representing the next timer value
 	 */
-	printf("led timer end\n");
 	int *temp = (int*) context;
 	*temp = 0;
 	return 0;
 }
 
-alt_u32 signal_isr_function(void* context) {
+alt_u32 signal_avi_isr_function(void* context) {
 	/*
-	 * ISR function that is called when signal timer times out
+	 * ISR function that is called when avi signal timer times out
 	 * Sets the context variable (reference to the signal high value) to 0
 	 *
 	 * Parameters: context
 	 * Returns: alt_u32 representing the next timer value
 	 */
-	printf("signal timer end\n");
+	int *temp = (int*) context;
+	*temp = 0;
+	return 0;
+}
+alt_u32 signal_aei_isr_function(void* context) {
+	/*
+	 * ISR function that is called when aei signal timer times out
+	 * Sets the context variable (reference to the signal high value) to 0
+	 *
+	 * Parameters: context
+	 * Returns: alt_u32 representing the next timer value
+	 */
+	int *temp = (int*) context;
+	*temp = 0;
+	return 0;
+}
+alt_u32 signal_pvarp_isr_function(void* context) {
+	/*
+	 * ISR function that is called when pvarp signal timer times out
+	 * Sets the context variable (reference to the signal high value) to 0
+	 *
+	 * Parameters: context
+	 * Returns: alt_u32 representing the next timer value
+	 */
+	int *temp = (int*) context;
+	*temp = 0;
+	return 0;
+}
+alt_u32 signal_vrp_isr_function(void* context) {
+	/*
+	 * ISR function that is called when vrp signal timer times out
+	 * Sets the context variable (reference to the signal high value) to 0
+	 *
+	 * Parameters: context
+	 * Returns: alt_u32 representing the next timer value
+	 */
+	int *temp = (int*) context;
+	*temp = 0;
+	return 0;
+}
+alt_u32 signal_lri_isr_function(void* context) {
+	/*
+	 * ISR function that is called when lri signal timer times out
+	 * Sets the context variable (reference to the signal high value) to 0
+	 *
+	 * Parameters: context
+	 * Returns: alt_u32 representing the next timer value
+	 */
+	int *temp = (int*) context;
+	*temp = 0;
+	return 0;
+}
+alt_u32 signal_uri_isr_function(void* context) {
+	/*
+	 * ISR function that is called when uri signal timer times out
+	 * Sets the context variable (reference to the signal high value) to 0
+	 *
+	 * Parameters: context
+	 * Returns: alt_u32 representing the next timer value
+	 */
 	int *temp = (int*) context;
 	*temp = 0;
 	return 0;
