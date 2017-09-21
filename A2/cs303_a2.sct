@@ -11,6 +11,7 @@ output signal VPace, APace;
       signal PVARP_start, PVARP_ex, PVARP_stop;
       signal AEI_start, AEI_ex, AEI_stop;
       signal URI_start, URI_ex, URI_stop;
+      signal first_asense;
 
       region LRI:
       initial state init --> commit1 with VSense
@@ -39,21 +40,18 @@ output signal VPace, APace;
       region VRP_timer:
       initial state idle --> timer with VRP_start;
       state timer "timer"--> idle with VRPTO/VRP_ex;
-      
+       
       region AVI:
-      initial state init --> commit1 with ASense;
-      connector state commit1 --> waitAVI2 immediate with /AVI_start;
-      state waitAVI2 "waitAVI2" --> waitPVARP with AVI_ex/VPace;
+      initial state init --> waitAVI with ASense/AVI_start;
       state waitPVARP --> waitASense with PVARP_ex; 
-      state waitASense --> commit4 with ASense;
-      connector state commit4 --> waitAVI immediate with /AVI_start;
+      state waitASense --> waitAVI with AVI_start/AVI_start;
       state waitAVI "waitAVI" --> commit2 with VSense
       --> commit2 with VPace
       --> waitURI with AVI_ex;
       connector state commit2 --> waitPVARP immediate with /AVI_stop;
-      state waitURI "waitURI" --> commit3 with URI_ex;
-      connector state commit3 --> waitPVARP immediate with /VPace;
-      
+      state waitURI "waitURI" --> waitPVARP with URI_ex/VPace
+      --> waitPVARP with first_asense/VPace;
+  
       region AVI_timer:
       initial state idle --> timer with AVI_start;
       state timer "timer"--> idle with AVI_stop
@@ -101,5 +99,11 @@ output signal VPace, APace;
       --> commit2 with VPace;
       connector state commit2 --> waitURI immediate with /URI_start;
       
+      region first_asense:
+      initial state init --> intState immediate with /first_asense;
+      state intState --> intState with /first_asense
+      --> fin with VSense
+      --> fin with VPace;
+      state fin;
     };
 }
