@@ -11,6 +11,8 @@
 /*                                                                           */
 /* This code is provided under the terms of the Eclipse Public License (EPL).*/
 /*****************************************************************************/
+#include "sccharts.h"
+
 char URITO;
 char APace;
 char VSense;

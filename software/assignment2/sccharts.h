@@ -8,8 +8,6 @@
 #ifndef SCCHARTS_H_
 #define SCCHARTS_H_
 
-#include "sccharts.c"
-
 // Functions
 void reset();
 void tick();
