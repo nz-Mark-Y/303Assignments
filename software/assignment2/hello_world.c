@@ -30,7 +30,7 @@
 #define LRI_VALUE 1900
 #define URI_VALUE 1800
 
-#define DEBOUNCE_VALUE 200
+#define DEBOUNCE_VALUE 100
 #define SIGNAL_VALUE 1
 //=============================================
 void mode0();
@@ -87,6 +87,9 @@ static alt_alarm uri_signal_timer;
 static int buttonValue = 1;																			// Flag to hold which button is pressed
 static volatile int vpace_LED_on = 0;																// Flag to hold if the VPace LED should be on or off
 static volatile int apace_LED_on = 0;																// Flag to hold if the APace LED should be on or off
+static volatile int aei_running = 0;																// Flag to hold if AEI is running
+static volatile int pvarp_running = 0;																// Flag to hold if PVARP is running
+static volatile int vrp_running = 0;     															// Flag to hold if VRP is running
 //=============================================
 int main() {
 	printf("Hello from Nios II!\n");
@@ -99,7 +102,7 @@ int main() {
 	while(1) {
 		tick();
 
-		if (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 0) {
+		if (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 0) {										// Select mode
 			mode0();
 		} else {
 			mode1();
@@ -116,7 +119,7 @@ void mode0() {
 	 * Returns: NONE
 	 */
 	if (VPace == 1) {																			 	// VPace signal handler
-		printf("** vpace set\n");
+		printf("** vpace set **\n");
 		initialise_pvarp_timer();
 		initialise_vrp_timer();
 		initialise_aei_timer();
@@ -126,7 +129,7 @@ void mode0() {
 		initialise_LED_timer(&vpace_LED_on);
 	}
 	if (APace == 1) {																				// APace signal handler
-		printf("** apace set\n");
+		printf("** apace set **\n");
 		initialise_avi_timer();
 		apace_LED_on = 1;
 		initialise_LED_timer(&apace_LED_on);
@@ -175,20 +178,30 @@ void buttons_isr(void* context) {
 	int* temp = (int*) context;
 	(*temp) = IORD_ALTERA_AVALON_PIO_EDGE_CAP(BUTTONS_BASE);
 	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTONS_BASE, 0);												// Clear the edge capture register
-	if ((*temp & 0x01) > 0) {
+	if ((*temp & 0x01) > 0) {																		// VSense button
+		if (vrp_running == 1) {																		// If in VRP phase, ignore as VR
+			printf("vr registered\n");
+			return;
+		}
 		printf("vsense pressed\n");
 		initialise_pvarp_timer();
 		initialise_vrp_timer();
-		initialise_aei_timer();
+		if (aei_running == 0) {																		// If AEI timer is running, don't start AEI again
+			initialise_aei_timer();
+		}
 		initialise_lri_timer();
 		initialise_uri_timer();
-		VSense = 1;																					// VSense button is pressed
+		VSense = 1;																					// Set VSense as pressed
 		initialise_debounce_timer(&VSense);
 	}
-	if ((*temp & 0x02) > 0) {
+	if ((*temp & 0x02) > 0) {																		// ASense button
+		if (pvarp_running == 1) {																	// If in PVARP phase, ignore as AR
+			printf("ar registered\n");
+			return;
+		}
 		printf("asense pressed\n");
 		initialise_avi_timer();
-		ASense = 1;																					// ASense button is pressed
+		ASense = 1;																					// Set ASense as pressed
 		initialise_debounce_timer(&ASense);
 	}
 }
@@ -203,6 +216,7 @@ void initialise_avi_timer() {
 	printf("avi timer start\n");
 	int avi_context = 0;
 	void* avi_timer_context = (void*) &avi_context;
+	alt_alarm_stop(&avi_timer);																		// Stop the timer before running it again
 	alt_alarm_start(&avi_timer, AVI_VALUE, avi_isr_function, avi_timer_context);
 }
 
@@ -215,6 +229,7 @@ void initialise_aei_timer() {
 	 */
 	printf("aei timer start\n");
 	int aei_context = 0;
+	aei_running = 1;																				// Update that AEI timer is running
 	void* aei_timer_context = (void*) &aei_context;
 	alt_alarm_start(&aei_timer, AEI_VALUE, aei_isr_function, aei_timer_context);
 }
@@ -228,6 +243,7 @@ void initialise_pvarp_timer() {
 	 */
 	printf("pvarp timer start\n");
 	int pvarp_context = 0;
+	pvarp_running = 1;																				// Update that PVARP timer is running
 	void* pvarp_timer_context = (void*) &pvarp_context;
 	alt_alarm_start(&pvarp_timer, PVARP_VALUE, pvarp_isr_function, pvarp_timer_context);
 }
@@ -241,6 +257,7 @@ void initialise_vrp_timer() {
 	 */
 	printf("vrp timer start\n");
 	int vrp_context = 0;
+	vrp_running = 1;																				// Update that VRP timer is running
 	void* vrp_timer_context = (void*) &vrp_context;
 	alt_alarm_start(&vrp_timer, VRP_VALUE, vrp_isr_function, vrp_timer_context);
 }
@@ -253,8 +270,10 @@ void initialise_lri_timer() {
 	 * Returns: NONE
 	 */
 	printf("lri timer start\n");
+	LRITO = 0;
 	int lri_context = 0;
 	void* lri_timer_context = (void*) &lri_context;
+	alt_alarm_stop(&lri_timer);																		// Stop LRI timer before running it again
 	alt_alarm_start(&lri_timer, LRI_VALUE, lri_isr_function, lri_timer_context);
 }
 
@@ -268,6 +287,7 @@ void initialise_uri_timer() {
 	printf("uri timer start\n");
 	int uri_context = 0;
 	void* uri_timer_context = (void*) &uri_context;
+	alt_alarm_stop(&uri_timer);																		// Stop URI timer before running it again
 	alt_alarm_start(&uri_timer, URI_VALUE, uri_isr_function, uri_timer_context);
 }
 
@@ -381,6 +401,7 @@ alt_u32 aei_isr_function(void* context) {
 	 */
 	printf("aei timer end\n");
 	AEITO = 1;
+	aei_running = 0;
 	initialise_aei_signal_timer(&AEITO);
 	return 0;
 }
@@ -394,6 +415,7 @@ alt_u32 pvarp_isr_function(void* context) {
 	 */
 	printf("pvarp timer end\n");
 	PVARPTO = 1;
+	pvarp_running = 0;
 	initialise_pvarp_signal_timer(&PVARPTO);
 	return 0;
 }
@@ -407,6 +429,7 @@ alt_u32 vrp_isr_function(void* context) {
 	 */
 	printf("vrp timer end\n");
 	VRPTO = 1;
+	vrp_running = 0;
 	initialise_vrp_signal_timer(&VRPTO);
 	return 0;
 }
