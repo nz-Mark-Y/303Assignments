@@ -84,6 +84,7 @@ int current_switch_value = 0;
 int main() {
 	printf("Welcome to the Nios II Pacemaker! \n");
 	reset();
+	init_uart();
 
 	while(1) {
 		if (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE)) {
@@ -100,11 +101,10 @@ int main() {
 			alt_alarm_stop(&uri_timer);
 			if (current_switch_value) {
 				mode = 1;
-				init_uart();
+				IOWR_ALTERA_AVALON_PIO_IRQ_MASK(BUTTONS_BASE, 0x00); 										// Disable interrupts for all buttons
 			} else {
 				mode = 0;
 				init_buttons_pio();
-				fp.close();
 			}
 			reset();
 		}	
