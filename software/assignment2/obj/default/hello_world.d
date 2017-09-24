@@ -9,7 +9,7 @@ obj/default/hello_world.o: hello_world.c ../assignment2_bsp/system.h \
   ../assignment2_bsp//drivers/inc/altera_avalon_pio_regs.h \
   ../assignment2_bsp//HAL/inc/io.h \
   ../assignment2_bsp//HAL/inc/alt_types.h \
-  ../assignment2_bsp//HAL/inc/alt_types.h sccharts.h
+  ../assignment2_bsp//HAL/inc/alt_types.h sccharts.h defines.h
 
 ../assignment2_bsp/system.h:
 
@@ -38,3 +38,5 @@ obj/default/hello_world.o: hello_world.c ../assignment2_bsp/system.h \
 ../assignment2_bsp//HAL/inc/alt_types.h:
 
 sccharts.h:
+
+defines.h:
