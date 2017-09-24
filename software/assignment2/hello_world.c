@@ -77,18 +77,37 @@ static volatile int setURITO = 0;
 
 int fp, c;																							// Variables for UART read and write
 char* uart_read;																					// Buffer character pointer for uart read
+int mode = 0;
+int previous_switch_value = 2;
+int current_switch_value = 0;
 //=============================================
 int main() {
 	printf("Welcome to the Nios II Pacemaker! \n");
-
 	reset();
-	if (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 0) {
-		init_buttons_pio();																			// Initialise buttons if in correct mode
-	} else {
-		init_uart();																				// Initialise uart if in correct mode
-	}
 
 	while(1) {
+		if (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE)) {
+			current_switch_value = 1;
+		} else {
+			current_switch_value = 0;
+		}
+		if (current_switch_value != previous_switch_value) {
+			alt_alarm_stop(&avi_timer);
+			alt_alarm_stop(&aei_timer);
+			alt_alarm_stop(&pvarp_timer);
+			alt_alarm_stop(&vrp_timer);
+			alt_alarm_stop(&lri_timer);
+			alt_alarm_stop(&uri_timer);
+			if (current_switch_value) {
+				mode = 1;
+				init_uart();
+			} else {
+				mode = 0;
+				init_buttons_pio();
+				fp.close();
+			}
+			reset();
+		}	
 		crit_flag = 1;																				// Enter critical section
 		tick();																						// Tick
 		AVITO = 0;																					// Reset flags
@@ -123,11 +142,12 @@ int main() {
 			setURITO = 0;
 		}
 
-		if (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 0) {										// Select mode
+		if (mode == 0) {										// Select mode
 			mode0();
 		} else {
 			mode1();
 		}
+		previous_switch_value = current_switch_value;
 	}
 	return 0;
 }
