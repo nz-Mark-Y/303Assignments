@@ -1,3 +1,1 @@
-obj/default/sccharts.o: sccharts.c sccharts.h
-
-sccharts.h:
+obj/default/sccharts.o: sccharts.c

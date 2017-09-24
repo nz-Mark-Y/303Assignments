@@ -310,6 +310,7 @@ void initialise_aei_timer() {
 	int aei_context = 0;
 	aei_running = 1;																				// Update that AEI timer is running
 	void* aei_timer_context = (void*) &aei_context;
+	alt_alarm_stop(&aei_timer);
 	alt_alarm_start(&aei_timer, AEI_VALUE, aei_isr_function, aei_timer_context);
 }
 
@@ -324,6 +325,7 @@ void initialise_pvarp_timer() {
 	int pvarp_context = 0;
 	pvarp_running = 1;																				// Update that PVARP timer is running
 	void* pvarp_timer_context = (void*) &pvarp_context;
+	alt_alarm_stop(&pvarp_timer);
 	alt_alarm_start(&pvarp_timer, PVARP_VALUE, pvarp_isr_function, pvarp_timer_context);
 }
 
@@ -338,6 +340,7 @@ void initialise_vrp_timer() {
 	int vrp_context = 0;
 	vrp_running = 1;																				// Update that VRP timer is running
 	void* vrp_timer_context = (void*) &vrp_context;
+	alt_alarm_stop(&vrp_timer);
 	alt_alarm_start(&vrp_timer, VRP_VALUE, vrp_isr_function, vrp_timer_context);
 }
 
