@@ -66,6 +66,7 @@ static volatile int vpace_LED_on = 0;																// Flag to hold if the VPac
 static volatile int apace_LED_on = 0;																// Flag to hold if the APace LED should be on or off
 static volatile int pvarp_running = 0;																// Flag to hold if PVARP is running
 static volatile int vrp_running = 0;     															// Flag to hold if VRP is running
+static volatile int aei_running = 0;
 static volatile int crit_flag = 0;
 static volatile int setAVITO = 0;
 static volatile int setAEITO = 0;
@@ -145,7 +146,9 @@ void mode0() {
 		}
 		initialise_pvarp_timer();
 		initialise_vrp_timer();
-		initialise_aei_timer();
+		if (aei_running == 0) {
+			initialise_aei_timer();
+		}
 		initialise_lri_timer();
 		initialise_uri_timer();
 		vpace_LED_on = 1;																			// Set LED on
@@ -277,7 +280,9 @@ void buttons_isr(void* context) {
 		printf("vsense pressed\n");
 		initialise_pvarp_timer();
 		initialise_vrp_timer();
-		initialise_aei_timer();
+		if (aei_running == 0) {
+			initialise_aei_timer();
+		}
 		initialise_lri_timer();
 		initialise_uri_timer();
 		VSense = 1;																					// Set VSense as pressed
@@ -319,6 +324,7 @@ void initialise_aei_timer() {
 	printf("aei timer start\n");
 	int aei_context = 0;																			// Update that AEI timer is running
 	void* aei_timer_context = (void*) &aei_context;
+	aei_running = 1;
 	alt_alarm_stop(&aei_timer);
 	alt_alarm_start(&aei_timer, AEI_VALUE, aei_isr_function, aei_timer_context);
 }
@@ -428,6 +434,7 @@ alt_u32 aei_isr_function(void* context) {
 	 * Returns: alt_u32 representing the next timer value
 	 */
 	printf("aei timer end\n");
+	aei_running = 0;
 	if (crit_flag) {
 		setAEITO = 1;
 	} else {
