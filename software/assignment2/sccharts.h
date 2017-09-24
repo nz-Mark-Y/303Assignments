@@ -21,6 +21,7 @@ extern char LRITO;
 extern char VRPTO;
 extern char AEITO;
 extern char URITO;
+extern char URI_NOTRUNNING;
 
 // Outputs
 extern char VPace;

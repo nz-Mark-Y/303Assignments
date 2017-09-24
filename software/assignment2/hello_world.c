@@ -42,12 +42,6 @@ void initialise_lri_timer();
 void initialise_uri_timer();
 void initialise_debounce_timer();
 void initialise_LED_timer();
-void initialise_avi_signal_timer();
-void initialise_aei_signal_timer();
-void initialise_pvarp_signal_timer();
-void initialise_vrp_signal_timer();
-void initialise_lri_signal_timer();
-void initialise_uri_signal_timer();
 
 alt_u32 avi_isr_function();
 alt_u32 aei_isr_function();
@@ -57,13 +51,6 @@ alt_u32 lri_isr_function();
 alt_u32 uri_isr_function();
 alt_u32 debounce_isr_function();
 alt_u32 LED_isr_function();
-
-alt_u32 signal_avi_isr_function();
-alt_u32 signal_aei_isr_function();
-alt_u32 signal_pvarp_isr_function();
-alt_u32 signal_vrp_isr_function();
-alt_u32 signal_lri_isr_function();
-alt_u32 signal_uri_isr_function();
 //=============================================
 static alt_alarm avi_timer;																			// Timers
 static alt_alarm aei_timer;
@@ -73,19 +60,19 @@ static alt_alarm lri_timer;
 static alt_alarm uri_timer;
 static alt_alarm debounce_timer;
 static alt_alarm LED_timer;
-static alt_alarm avi_signal_timer;
-static alt_alarm aei_signal_timer;
-static alt_alarm pvarp_signal_timer;
-static alt_alarm vrp_signal_timer;
-static alt_alarm lri_signal_timer;
-static alt_alarm uri_signal_timer;
 
 static int buttonValue = 1;																			// Flag to hold which button is pressed
 static volatile int vpace_LED_on = 0;																// Flag to hold if the VPace LED should be on or off
 static volatile int apace_LED_on = 0;																// Flag to hold if the APace LED should be on or off
-static volatile int aei_running = 0;																// Flag to hold if AEI is running
 static volatile int pvarp_running = 0;																// Flag to hold if PVARP is running
 static volatile int vrp_running = 0;     															// Flag to hold if VRP is running
+static volatile int crit_flag = 0;
+static volatile int setAVITO = 0;
+static volatile int setAEITO = 0;
+static volatile int setPVARPTO = 0;
+static volatile int setVRPTO = 0;
+static volatile int setLRITO = 0;
+static volatile int setURITO = 0;
 
 int fp, c;																							// Variables for UART read and write
 char* uart_read;																					// Buffer character pointer for uart read
@@ -101,7 +88,39 @@ int main() {
 	}
 
 	while(1) {
-		tick();
+		crit_flag = 1;																				// Enter critical section
+		tick();																						// Tick
+		AVITO = 0;																					// Reset flags
+		AEITO = 0;
+		PVARPTO = 0;
+		VRPTO = 0;
+		LRITO = 0;
+		URITO = 0;
+		crit_flag = 0;																				// Exit critical section
+		if (setAVITO) {																				// Update flags if necessary
+			AVITO = 1;
+			setAVITO = 0;
+		}
+		if (setAEITO) {
+			AEITO = 1;
+			setAEITO = 0;
+		}
+		if (setPVARPTO) {
+			PVARPTO = 1;
+			setPVARPTO = 0;
+		}
+		if (setVRPTO) {
+			VRPTO = 1;
+			setVRPTO = 0;
+		}
+		if (setLRITO) {
+			LRITO = 1;
+			setLRITO = 0;
+		}
+		if (setURITO) {
+			URITO = 1;
+			setURITO = 0;
+		}
 
 		if (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 0) {										// Select mode
 			mode0();
@@ -126,9 +145,7 @@ void mode0() {
 		}
 		initialise_pvarp_timer();
 		initialise_vrp_timer();
-		if (aei_running == 0) {																		// If AEI timer is running, don't start AEI again
-			initialise_aei_timer();
-		}
+		initialise_aei_timer();
 		initialise_lri_timer();
 		initialise_uri_timer();
 		vpace_LED_on = 1;																			// Set LED on
@@ -183,9 +200,7 @@ void mode1() {
 				printf("vsense received\n");
 				initialise_pvarp_timer();
 				initialise_vrp_timer();
-				if (aei_running == 0) {																// If AEI timer is running, don't start AEI again
-					initialise_aei_timer();
-				}
+				initialise_aei_timer();
 				initialise_lri_timer();
 				initialise_uri_timer();
 				VSense = 1;																			// Set VSense as sensed
@@ -211,9 +226,7 @@ void mode1() {
 		}
 		initialise_pvarp_timer();
 		initialise_vrp_timer();
-		if (aei_running == 0) {																		// If AEI timer is running, don't start AEI again
-			initialise_aei_timer();
-		}
+		initialise_aei_timer();
 		initialise_lri_timer();
 		initialise_uri_timer();
 		write(fp,"V",1);
@@ -229,8 +242,7 @@ void mode1() {
 }
 
 void init_uart() {
-	fp = open(UART_NAME, O_NONBLOCK | O_RDWR);
-
+	fp = open(UART_NAME, O_NONBLOCK | O_RDWR);														// Open file pointer for non blocking, rw
 }
 
 void init_buttons_pio() {
@@ -265,9 +277,7 @@ void buttons_isr(void* context) {
 		printf("vsense pressed\n");
 		initialise_pvarp_timer();
 		initialise_vrp_timer();
-		if (aei_running == 0) {																		// If AEI timer is running, don't start AEI again
-			initialise_aei_timer();
-		}
+		initialise_aei_timer();
 		initialise_lri_timer();
 		initialise_uri_timer();
 		VSense = 1;																					// Set VSense as pressed
@@ -307,8 +317,7 @@ void initialise_aei_timer() {
 	 * Returns: NONE
 	 */
 	printf("aei timer start\n");
-	int aei_context = 0;
-	aei_running = 1;																				// Update that AEI timer is running
+	int aei_context = 0;																			// Update that AEI timer is running
 	void* aei_timer_context = (void*) &aei_context;
 	alt_alarm_stop(&aei_timer);
 	alt_alarm_start(&aei_timer, AEI_VALUE, aei_isr_function, aei_timer_context);
@@ -352,7 +361,6 @@ void initialise_lri_timer() {
 	 * Returns: NONE
 	 */
 	printf("lri timer start\n");
-	LRITO = 0;
 	int lri_context = 0;
 	void* lri_timer_context = (void*) &lri_context;
 	alt_alarm_stop(&lri_timer);																		// Stop LRI timer before running it again
@@ -369,6 +377,7 @@ void initialise_uri_timer() {
 	printf("uri timer start\n");
 	int uri_context = 0;
 	void* uri_timer_context = (void*) &uri_context;
+	URI_NOTRUNNING = 0;
 	alt_alarm_stop(&uri_timer);																		// Stop URI timer before running it again
 	alt_alarm_start(&uri_timer, URI_VALUE, uri_isr_function, uri_timer_context);
 }
@@ -395,72 +404,6 @@ void initialise_LED_timer(int* context) {
 	alt_alarm_start(&LED_timer, DEBOUNCE_VALUE, LED_isr_function, LED_timer_context);
 }
 
-void initialise_avi_signal_timer(char* context) {
-	/*
-	 * Initialises the timer for measuring the avi signal high period
-	 *
-	 * Parameters: NONE
-	 * Returns: NONE
-	 */
-	void* signal_timer_context = (void*) context;
-	alt_alarm_start(&avi_signal_timer, SIGNAL_VALUE, signal_avi_isr_function, signal_timer_context);
-}
-
-void initialise_aei_signal_timer(char* context) {
-	/*
-	 * Initialises the timer for measuring the aei signal high period
-	 *
-	 * Parameters: NONE
-	 * Returns: NONE
-	 */
-	void* signal_timer_context = (void*) context;
-	alt_alarm_start(&aei_signal_timer, SIGNAL_VALUE, signal_aei_isr_function, signal_timer_context);
-}
-
-void initialise_pvarp_signal_timer(char* context) {
-	/*
-	 * Initialises the timer for measuring the pvarp signal high period
-	 *
-	 * Parameters: NONE
-	 * Returns: NONE
-	 */
-	void* signal_timer_context = (void*) context;
-	alt_alarm_start(&pvarp_signal_timer, SIGNAL_VALUE, signal_pvarp_isr_function, signal_timer_context);
-}
-
-void initialise_vrp_signal_timer(char* context) {
-	/*
-	 * Initialises the timer for measuring the vrp signal high period
-	 *
-	 * Parameters: NONE
-	 * Returns: NONE
-	 */
-	void* signal_timer_context = (void*) context;
-	alt_alarm_start(&vrp_signal_timer, SIGNAL_VALUE, signal_vrp_isr_function, signal_timer_context);
-}
-
-void initialise_lri_signal_timer(char* context) {
-	/*
-	 * Initialises the timer for measuring the lri signal high period
-	 *
-	 * Parameters: NONE
-	 * Returns: NONE
-	 */
-	void* signal_timer_context = (void*) context;
-	alt_alarm_start(&lri_signal_timer, SIGNAL_VALUE, signal_lri_isr_function, signal_timer_context);
-}
-
-void initialise_uri_signal_timer(char* context) {
-	/*
-	 * Initialises the timer for measuring the uri signal high period
-	 *
-	 * Parameters: NONE
-	 * Returns: NONE
-	 */
-	void* signal_timer_context = (void*) context;
-	alt_alarm_start(&uri_signal_timer, SIGNAL_VALUE, signal_uri_isr_function, signal_timer_context);
-}
-
 alt_u32 avi_isr_function(void* context) {
 	/*
 	 * ISR function that is called when AVI timer times out
@@ -469,8 +412,11 @@ alt_u32 avi_isr_function(void* context) {
 	 * Returns: alt_u32 representing the next timer value
 	 */
 	printf("avi timer end\n");
-	AVITO = 1;
-	initialise_avi_signal_timer(&AVITO);
+	if (crit_flag) {																				// Check for critical section
+		setAVITO = 1;																				// If in crit section, set flag to be updated
+	} else {
+		AVITO = 1;																					// Else update flag
+	}
 	return 0;
 }
 
@@ -482,9 +428,11 @@ alt_u32 aei_isr_function(void* context) {
 	 * Returns: alt_u32 representing the next timer value
 	 */
 	printf("aei timer end\n");
-	AEITO = 1;
-	aei_running = 0;
-	initialise_aei_signal_timer(&AEITO);
+	if (crit_flag) {
+		setAEITO = 1;
+	} else {
+		AEITO = 1;
+	}
 	return 0;
 }
 
@@ -496,9 +444,12 @@ alt_u32 pvarp_isr_function(void* context) {
 	 * Returns: alt_u32 representing the next timer value
 	 */
 	printf("pvarp timer end\n");
-	PVARPTO = 1;
 	pvarp_running = 0;
-	initialise_pvarp_signal_timer(&PVARPTO);
+	if (crit_flag) {
+		setPVARPTO = 1;
+	} else {
+		PVARPTO = 1;
+	}
 	return 0;
 }
 
@@ -510,9 +461,12 @@ alt_u32 vrp_isr_function(void* context) {
 	 * Returns: alt_u32 representing the next timer value
 	 */
 	printf("vrp timer end\n");
-	VRPTO = 1;
 	vrp_running = 0;
-	initialise_vrp_signal_timer(&VRPTO);
+	if (crit_flag) {
+		setVRPTO = 1;
+	} else {
+		VRPTO = 1;
+	}
 	return 0;
 }
 
@@ -524,8 +478,11 @@ alt_u32 lri_isr_function(void* context) {
 	 * Returns: alt_u32 representing the next timer value
 	 */
 	printf("lri timer end\n");
-	LRITO = 1;
-	initialise_lri_signal_timer(&LRITO);
+	if (crit_flag) {
+		setLRITO = 1;
+	} else {
+		LRITO = 1;
+	}
 	return 0;
 }
 
@@ -537,8 +494,12 @@ alt_u32 uri_isr_function(void* context) {
 	 * Returns: alt_u32 representing the next timer value
 	 */
 	printf("uri timer end\n");
-	URITO = 1;
-	initialise_uri_signal_timer(&URITO);
+	URI_NOTRUNNING = 1;
+	if (crit_flag) {
+		setURITO = 1;
+	} else {
+		URITO = 1;
+	}
 	return 0;
 }
 
@@ -567,77 +528,3 @@ alt_u32 LED_isr_function(void* context) {
 	*temp = 0;
 	return 0;
 }
-
-alt_u32 signal_avi_isr_function(void* context) {
-	/*
-	 * ISR function that is called when avi signal timer times out
-	 * Sets the context variable (reference to the signal high value) to 0
-	 *
-	 * Parameters: context
-	 * Returns: alt_u32 representing the next timer value
-	 */
-	int *temp = (int*) context;
-	*temp = 0;
-	return 0;
-}
-alt_u32 signal_aei_isr_function(void* context) {
-	/*
-	 * ISR function that is called when aei signal timer times out
-	 * Sets the context variable (reference to the signal high value) to 0
-	 *
-	 * Parameters: context
-	 * Returns: alt_u32 representing the next timer value
-	 */
-	int *temp = (int*) context;
-	*temp = 0;
-	return 0;
-}
-alt_u32 signal_pvarp_isr_function(void* context) {
-	/*
-	 * ISR function that is called when pvarp signal timer times out
-	 * Sets the context variable (reference to the signal high value) to 0
-	 *
-	 * Parameters: context
-	 * Returns: alt_u32 representing the next timer value
-	 */
-	int *temp = (int*) context;
-	*temp = 0;
-	return 0;
-}
-alt_u32 signal_vrp_isr_function(void* context) {
-	/*
-	 * ISR function that is called when vrp signal timer times out
-	 * Sets the context variable (reference to the signal high value) to 0
-	 *
-	 * Parameters: context
-	 * Returns: alt_u32 representing the next timer value
-	 */
-	int *temp = (int*) context;
-	*temp = 0;
-	return 0;
-}
-alt_u32 signal_lri_isr_function(void* context) {
-	/*
-	 * ISR function that is called when lri signal timer times out
-	 * Sets the context variable (reference to the signal high value) to 0
-	 *
-	 * Parameters: context
-	 * Returns: alt_u32 representing the next timer value
-	 */
-	int *temp = (int*) context;
-	*temp = 0;
-	return 0;
-}
-alt_u32 signal_uri_isr_function(void* context) {
-	/*
-	 * ISR function that is called when uri signal timer times out
-	 * Sets the context variable (reference to the signal high value) to 0
-	 *
-	 * Parameters: context
-	 * Returns: alt_u32 representing the next timer value
-	 */
-	int *temp = (int*) context;
-	*temp = 0;
-	return 0;
-}
-
