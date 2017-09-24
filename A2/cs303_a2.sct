@@ -14,18 +14,18 @@ output signal VPace, APace;
       signal first_asense;
 
       region LRI:
-      initial state init --> commit1 with VSense
+      initial state init --> commit1 with VSense	
       --> commit1 with VPace;
-      connector state commit1 --> waitVRP immediate with /LRI_start;
-      state waitVRP --> waitLRI with VRP_ex;
+      connector state commit1 --> waitVRP immediate with /LRI_start;	//timer starts when a Ventricular event occurs
+      state waitVRP --> waitLRI with VRP_ex;	//wait for the VRP_ex flag, since any ventricular events need to be ignored until VRP times out
       state waitLRI "waitLRI" --> commit2 with VSense
       --> commit2 with VPace
       --> commit3 with LRI_ex;
       connector state commit2 --> intState immediate with /LRI_stop;
-      connector state commit3 --> intState immediate with /VPace;
+      connector state commit3 --> intState immediate with /VPace;	//trigger VPace if LRI times out
       state intState --> waitVRP with /LRI_start;
 
-      region LRI_timer:
+      region LRI_timer:	//This timer represents the slowest rate at which the heart is allowed to operate. This is measured as the time between ventricular events.
       initial state idle --> timer with LRI_start;
       state timer "timer"--> idle with LRI_stop
       --> idle with LRITO/ LRI_ex;
@@ -33,32 +33,33 @@ output signal VPace, APace;
       region VRP:
       initial state idle --> commit1 with VSense
       --> commit1 with VPace;
-      connector state commit1 --> waitVRP immediate with /VRP_start;
+      connector state commit1 --> waitVRP immediate with /VRP_start;	//Timer starts when a Ventricular event occurs
       state waitVRP --> idle with VRP_ex;
 
-      region VRP_timer:
+      region VRP_timer:	//This timer represents the time after a ventricular event where any other ventricular events are ignored as Ventricular Refractory (VR) signals.
       initial state idle --> timer with VRP_start;
       state timer "timer"--> idle with VRPTO/VRP_ex;
        
       region AVI:
-      initial state init --> waitAVI with ASense/AVI_start;
-      state waitPVARP --> waitASense with PVARP_ex; 
+      initial state init --> waitAVI with ASense/AVI_start	//start timer when an atrial event occurs
+      --> waitAVI with APace/AVI_start;
+      state waitPVARP --> waitASense with PVARP_ex; //need to wait until PVARP times out, before we can respond to the next Atrial event 
       state waitASense --> commit1 with ASense
       --> commit1 with APace;
       connector state commit1 --> waitAVI immediate with /AVI_start;
       state waitAVI "waitAVI" --> commit2 with VSense
       --> commit2 with VPace
       --> waitURI with AVI_ex;
-      connector state commit2 --> waitPVARP immediate with /AVI_stop;
+      connector state commit2 --> waitPVARP immediate with /AVI_stop;	//stop timer once a Ventricular event occurs
       state waitURI "waitURI" --> waitPVARP with URI_ex/VPace
       --> waitPVARP with first_asense/VPace;
   
-      region AVI_timer:
+      region AVI_timer:	//This timer represents the maximum time between an atrial event and its subsequent ventricular event.
       initial state idle --> timer with AVI_start;
       state timer "timer"--> idle with AVI_stop
       --> idle with AVITO/AVI_ex;
       
-      region PVARP_timer:
+      region PVARP_timer:	//This timer represents the time  after  a  ventricular  event  where any atrial  events  are  ignored  as  Atrial Refractory (AR) signals.
       initial state idle --> timer with PVARP_start;
       state timer "timer"--> idle with PVARPTO/PVARP_ex;
       
@@ -68,7 +69,7 @@ output signal VPace, APace;
       connector state commit1 --> waitPVARP immediate with /PVARP_start;
       state waitPVARP --> idle with PVARP_ex;
       
-      region AEI_timer:
+      region AEI_timer:	//This timer represents the maximum time between a ventricular event and its subsequent atrial event.
       initial state idle --> timer with AEI_start;
       state timer "timer"--> idle with AEI_stop
       --> idle with AEITO/ AEI_ex;
@@ -76,8 +77,8 @@ output signal VPace, APace;
       region AEI:
       initial state init --> commit1 with VSense
       --> commit1 with VPace;
-      connector state commit1 --> waitPVARP immediate with /AEI_start;
-      state waitPVARP --> waitAEI with PVARP_ex;
+      connector state commit1 --> waitPVARP immediate with /AEI_start;	//Start timer when a ventricular event occurs
+      state waitPVARP --> waitAEI with PVARP_ex;	//can't respond to atrial events until PVARP times out
       state waitAEI "waitAEI" --> commit2 with ASense
       --> commit2 with APace
       --> commit3 with AEI_ex;
@@ -87,13 +88,13 @@ output signal VPace, APace;
       --> commit4 with VPace;
       connector state commit4 --> waitPVARP immediate with /AEI_start;
       
-      region URI_timer:
+      region URI_timer:	//This timer represents the fastest rate at which the pacemaker will ever pace the heart at.
       initial state idle --> timer with URI_start;
       state timer "timer" --> idle with URI_stop
-      --> idle with URITO/ URI_ex;
+      --> idle with URITO/ URI_ex;	//URI_ex is set when URI_timer times out
       
-      region URI:
-      initial state init --> commit1 with VSense
+      region URI:	
+      initial state init --> commit1 with VSense	//URI timer starts on a Ventricular event
       --> commit1 with VPace;
       connector state commit1 --> waitURI immediate with /URI_start;
       state waitURI "waitURI" --> intState with URI_ex;
@@ -102,7 +103,7 @@ output signal VPace, APace;
       --> commit2 with VPace;
       connector state commit2 --> waitURI immediate with /URI_start;
       
-      region first_asense:
+      region first_asense:			//ignore URI_ex for the first VPace, because URI can't start without a VPace 
       initial state init --> intState immediate with /first_asense;
       state intState --> intState with /first_asense
       --> fin with VSense
