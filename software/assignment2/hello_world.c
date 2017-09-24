@@ -147,7 +147,7 @@ void mode0() {
 		initialise_pvarp_timer();
 		initialise_vrp_timer();
 		if (aei_running == 0) {
-			initialise_aei_timer();
+			initialise_aei_timer();	//initialise AEI if it is not running
 		}
 		initialise_lri_timer();
 		initialise_uri_timer();
@@ -281,7 +281,7 @@ void buttons_isr(void* context) {
 		initialise_pvarp_timer();
 		initialise_vrp_timer();
 		if (aei_running == 0) {
-			initialise_aei_timer();
+			initialise_aei_timer();				//initialise AEI if it is not running
 		}
 		initialise_lri_timer();
 		initialise_uri_timer();
