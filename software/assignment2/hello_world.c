@@ -7,6 +7,9 @@
  * Any dip switch can be used to change the mode (all switches down == mode0)
  * After a mode switch is changed then the system must be reset (using Key3) for it to successfully change modes
  *
+ * For mode 1, we have included logic for when timers should start and stop in regards to sent and received V and A signals.
+ * Only timeout flags are communicated between the SCCharts implementation and the Nios II implementation, for minimal coupling.
+ *
  * Savi Mohan
  * Mark Yep
  * (Group 3)
@@ -23,16 +26,7 @@
 #include <ctype.h>
 #include <sys/_default_fcntl.h>
 #include "sccharts.h"
-//=============================================
-#define AVI_VALUE 150
-#define AEI_VALUE 400
-#define PVARP_VALUE 25
-#define VRP_VALUE 75
-#define LRI_VALUE 475
-#define URI_VALUE 450
-
-#define DEBOUNCE_VALUE 50
-#define SIGNAL_VALUE 1
+#include "defines.h"
 //=============================================
 void mode0();
 void mode1();
@@ -54,8 +48,6 @@ void initialise_pvarp_signal_timer();
 void initialise_vrp_signal_timer();
 void initialise_lri_signal_timer();
 void initialise_uri_signal_timer();
-
-
 
 alt_u32 avi_isr_function();
 alt_u32 aei_isr_function();
@@ -95,19 +87,17 @@ static volatile int aei_running = 0;																// Flag to hold if AEI is ru
 static volatile int pvarp_running = 0;																// Flag to hold if PVARP is running
 static volatile int vrp_running = 0;     															// Flag to hold if VRP is running
 
-int fp, c;
-char* uart_read;
-int toStart = 0;
+int fp, c;																							// Variables for UART read and write
+char* uart_read;																					// Buffer character pointer for uart read
 //=============================================
 int main() {
-	printf("Hello from Nios II!\n");
+	printf("Welcome to the Nios II Pacemaker! \n");
 
 	reset();
-	toStart = 1;
-	if (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 0) {											// Initialise buttons if in correct mode
-		init_buttons_pio();
+	if (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 0) {
+		init_buttons_pio();																			// Initialise buttons if in correct mode
 	} else {
-		init_uart();
+		init_uart();																				// Initialise uart if in correct mode
 	}
 
 	while(1) {
@@ -141,7 +131,7 @@ void mode0() {
 		}
 		initialise_lri_timer();
 		initialise_uri_timer();
-		vpace_LED_on = 1;
+		vpace_LED_on = 1;																			// Set LED on
 		initialise_LED_timer(&vpace_LED_on);
 	}
 	if (APace == 1) {																				// APace signal handler
@@ -150,16 +140,16 @@ void mode0() {
 			return;
 		}
 		initialise_avi_timer();
-		apace_LED_on = 1;
+		apace_LED_on = 1;																			// Set LED on
 		initialise_LED_timer(&apace_LED_on);
 	}
 
 	if (vpace_LED_on == 1) {																		// LED Logic
-		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x01);
+		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x01);											// LED 1
 	} else if (apace_LED_on == 1) {
-		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x02);
+		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x02);											// LED 2
 	} else {
-		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x00);
+		IOWR_ALTERA_AVALON_PIO_DATA(LEDS_GREEN_BASE, 0x00);											// No LEDs
 	}
 }
 
@@ -171,46 +161,40 @@ void mode1() {
 	 * Returns: NONE
 	 */
 
-	c = read(fp, uart_read, 1);
+	c = read(fp, uart_read, 1);																		// Read from UART into buffer, non blocking
 	if (c) {
-		if (*uart_read != 0) {
-			if(*uart_read == 'A') {
-				if (pvarp_running == 1) {																	// If in PVARP phase, ignore as AR
+		if (*uart_read != 0) {																		// Ignore an empty buffer
+			if(*uart_read == 'A') {																	// ASense received
+				if (pvarp_running == 1) {															// If in PVARP phase, ignore as AR
 					printf("ar registered\n");
-					*uart_read = 0;
+					*uart_read = 0;																	// Clear buffer
 					return;
 				}
 				printf("asense received\n");
 				initialise_avi_timer();
-				ASense = 1;																					// Set ASense as pressed
+				ASense = 1;																			// Set ASense as sensed
 				initialise_debounce_timer(&ASense);
-				toStart = 0;
 			} else if (*uart_read == 'V') {
-				if(toStart) {
-					VSense = 0;
-					ASense = 0;
-				} else {
-					if (vrp_running == 1) {																		// If in VRP phase, ignore as VR
-						printf("vr registered\n");
-						*uart_read = 0;
-						return;
-					}
-					printf("vsense received\n");
-					initialise_pvarp_timer();
-					initialise_vrp_timer();
-					if (aei_running == 0) {																		// If AEI timer is running, don't start AEI again
-						initialise_aei_timer();
-					}
-					initialise_lri_timer();
-					initialise_uri_timer();
-					VSense = 1;
-					initialise_debounce_timer(&VSense);
+				if (vrp_running == 1) {																// If in VRP phase, ignore as VR
+					printf("vr registered\n");
+					*uart_read = 0;																	// Clear buffer
+					return;
 				}
+				printf("vsense received\n");
+				initialise_pvarp_timer();
+				initialise_vrp_timer();
+				if (aei_running == 0) {																// If AEI timer is running, don't start AEI again
+					initialise_aei_timer();
+				}
+				initialise_lri_timer();
+				initialise_uri_timer();
+				VSense = 1;																			// Set VSense as sensed
+				initialise_debounce_timer(&VSense);
 			} else {
 				VSense = 0;
 				ASense = 0;
 			}
-			*uart_read = 0;
+			*uart_read = 0;																			// Clear buffer
 		} else {
 			VSense = 0;
 			ASense = 0;
