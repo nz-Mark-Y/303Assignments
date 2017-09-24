@@ -21,22 +21,24 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <sys/_default_fcntl.h>
 #include "sccharts.h"
 //=============================================
-#define AVI_VALUE 600
-#define AEI_VALUE 1600
-#define PVARP_VALUE 100
-#define VRP_VALUE 300
-#define LRI_VALUE 1900
-#define URI_VALUE 1800
+#define AVI_VALUE 150
+#define AEI_VALUE 400
+#define PVARP_VALUE 25
+#define VRP_VALUE 75
+#define LRI_VALUE 475
+#define URI_VALUE 450
 
-#define DEBOUNCE_VALUE 100
+#define DEBOUNCE_VALUE 50
 #define SIGNAL_VALUE 1
 //=============================================
 void mode0();
 void mode1();
 void init_buttons_pio();
 void buttons_isr();
+void init_uart();
 
 void initialise_avi_timer();
 void initialise_aei_timer();
@@ -52,6 +54,8 @@ void initialise_pvarp_signal_timer();
 void initialise_vrp_signal_timer();
 void initialise_lri_signal_timer();
 void initialise_uri_signal_timer();
+
+
 
 alt_u32 avi_isr_function();
 alt_u32 aei_isr_function();
@@ -90,13 +94,20 @@ static volatile int apace_LED_on = 0;																// Flag to hold if the APac
 static volatile int aei_running = 0;																// Flag to hold if AEI is running
 static volatile int pvarp_running = 0;																// Flag to hold if PVARP is running
 static volatile int vrp_running = 0;     															// Flag to hold if VRP is running
+
+int fp, c;
+char* uart_read;
+int toStart = 0;
 //=============================================
 int main() {
 	printf("Hello from Nios II!\n");
 
 	reset();
+	toStart = 1;
 	if (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE) == 0) {											// Initialise buttons if in correct mode
 		init_buttons_pio();
+	} else {
+		init_uart();
 	}
 
 	while(1) {
@@ -120,9 +131,14 @@ void mode0() {
 	 */
 	if (VPace == 1) {																			 	// VPace signal handler
 		printf("** vpace set **\n");
+		if (vrp_running == 1) {																		// If in VRP phase, ignore as VR
+			return;
+		}
 		initialise_pvarp_timer();
 		initialise_vrp_timer();
-		initialise_aei_timer();
+		if (aei_running == 0) {																		// If AEI timer is running, don't start AEI again
+			initialise_aei_timer();
+		}
 		initialise_lri_timer();
 		initialise_uri_timer();
 		vpace_LED_on = 1;
@@ -130,6 +146,9 @@ void mode0() {
 	}
 	if (APace == 1) {																				// APace signal handler
 		printf("** apace set **\n");
+		if (pvarp_running == 1) {																	// If in PVARP phase, ignore as AR
+			return;
+		}
 		initialise_avi_timer();
 		apace_LED_on = 1;
 		initialise_LED_timer(&apace_LED_on);
@@ -151,6 +170,82 @@ void mode1() {
 	 * Parameters: NONE
 	 * Returns: NONE
 	 */
+
+	c = read(fp, uart_read, 1);
+	if (c) {
+		if (*uart_read != 0) {
+			if(*uart_read == 'A') {
+				if (pvarp_running == 1) {																	// If in PVARP phase, ignore as AR
+					printf("ar registered\n");
+					*uart_read = 0;
+					return;
+				}
+				printf("asense received\n");
+				initialise_avi_timer();
+				ASense = 1;																					// Set ASense as pressed
+				initialise_debounce_timer(&ASense);
+				toStart = 0;
+			} else if (*uart_read == 'V') {
+				if(toStart) {
+					VSense = 0;
+					ASense = 0;
+				} else {
+					if (vrp_running == 1) {																		// If in VRP phase, ignore as VR
+						printf("vr registered\n");
+						*uart_read = 0;
+						return;
+					}
+					printf("vsense received\n");
+					initialise_pvarp_timer();
+					initialise_vrp_timer();
+					if (aei_running == 0) {																		// If AEI timer is running, don't start AEI again
+						initialise_aei_timer();
+					}
+					initialise_lri_timer();
+					initialise_uri_timer();
+					VSense = 1;
+					initialise_debounce_timer(&VSense);
+				}
+			} else {
+				VSense = 0;
+				ASense = 0;
+			}
+			*uart_read = 0;
+		} else {
+			VSense = 0;
+			ASense = 0;
+		}
+	} else {
+		VSense = 0;
+		ASense = 0;
+	}
+
+	if (VPace == 1) {																			 	// VPace signal handler
+		printf("** vpace set **\n");
+		if (vrp_running == 1) {																		// If in VRP phase, ignore as VR
+			return;
+		}
+		initialise_pvarp_timer();
+		initialise_vrp_timer();
+		if (aei_running == 0) {																		// If AEI timer is running, don't start AEI again
+			initialise_aei_timer();
+		}
+		initialise_lri_timer();
+		initialise_uri_timer();
+		write(fp,"V",1);
+	}
+	if (APace == 1) {																				// APace signal handler
+		printf("** apace set **\n");
+		if (pvarp_running == 1) {																	// If in PVARP phase, ignore as AR
+			return;
+		}
+		initialise_avi_timer();
+		write(fp,"A",1);
+	}
+}
+
+void init_uart() {
+	fp = open(UART_NAME, O_NONBLOCK | O_RDWR);
 
 }
 
@@ -299,7 +394,7 @@ void initialise_debounce_timer(int* context) {
 	 * Returns: NONE
 	 */
 	void* debounce_timer_context = (void*) context;
-	alt_alarm_start(&debounce_timer, DEBOUNCE_VALUE, debounce_isr_function, debounce_timer_context);
+	alt_alarm_start(&debounce_timer, SIGNAL_VALUE, debounce_isr_function, debounce_timer_context);
 }
 
 void initialise_LED_timer(int* context) {
