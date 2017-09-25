@@ -87,22 +87,45 @@ int main() {
 	init_uart();
 
 	while(1) {
-		if (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE)) {
+		if (IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE)) {												// Switch values from switches
 			current_switch_value = 1;
 		} else {
 			current_switch_value = 0;
 		}
-		if (current_switch_value != previous_switch_value) {
-			alt_alarm_stop(&avi_timer);
+		if (current_switch_value != previous_switch_value) {											// If switch has changed
+			crit_flag = 1;																				// Critical section start
+			alt_alarm_stop(&avi_timer);																	// Stop Timers
 			alt_alarm_stop(&aei_timer);
 			alt_alarm_stop(&pvarp_timer);
 			alt_alarm_stop(&vrp_timer);
 			alt_alarm_stop(&lri_timer);
 			alt_alarm_stop(&uri_timer);
-			if (current_switch_value) {
+			alt_alarm_stop(&debounce_timer);
+			alt_alarm_stop(&LED_timer);
+			setAVITO = 0;
+			setAEITO = 0;
+			setPVARPTO = 0;
+			setVRPTO = 0;
+			setLRITO = 0;
+			setURITO = 0;
+			AVITO = 0;																					// Reset flags
+			AEITO = 0;
+			PVARPTO = 0;
+			VRPTO = 0;
+			LRITO = 0;
+			URITO = 0;
+			URI_NOTRUNNING = 1;
+			vpace_LED_on = 0;																			// Reset Variables
+			apace_LED_on = 0;
+			pvarp_running = 0;
+			vrp_running = 0;
+			aei_running = 0;
+			ASense = 0;
+			VSense = 0;
+			crit_flag = 0;																				// Critical section end
+			if (current_switch_value) {																	// Mode 1
 				mode = 1;
-				IOWR_ALTERA_AVALON_PIO_IRQ_MASK(BUTTONS_BASE, 0x00); 										// Disable interrupts for all buttons
-			} else {
+			} else {																					// Mode 0
 				mode = 0;
 				init_buttons_pio();
 			}
@@ -147,7 +170,7 @@ int main() {
 		} else {
 			mode1();
 		}
-		previous_switch_value = current_switch_value;
+		previous_switch_value = current_switch_value;												// Set previous switch to current switch
 	}
 	return 0;
 }
